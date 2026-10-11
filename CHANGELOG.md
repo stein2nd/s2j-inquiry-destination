@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-11
+
+### Changed
+
+* npm 依存モジュールを更新した (`ncu` / `ncu -u`)。`@wordpress/components` v42、`@wordpress/element` v9、Vite v8.3.4、`@s2j/docs-linter` v1.0.27等
+* 開発依存の `braces` v3.0.3 (GHSA-vfj7-8cjw-p6xm: 深くネストしたパターンで Node.js プロセスが終了する) は修正版が未公開のため、深刻度 high の指摘7件 (CVE-2026-93687) は残す。
+
 ## 0.0.1 - 2026-10-08
 
 ### Changed
