@@ -2,6 +2,14 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-15
+
+### Changed
+
+* npm 依存モジュールを更新した (`ncu` / `ncu -u`)。`react` v19.3.1、`rollup` v4.64.7、`@s2j/docs-linter` v1.0.29、`@typescript-eslint/*` v8.71.2等
+* textlint の許可パターンに `#status-*` アンカー ID を追加
+* 開発依存の `braces` v3.0.3 (GHSA-vfj7-8cjw-p6xm: 深くネストしたパターンで Node.js プロセスが終了する) は修正版が未公開のため、深刻度 high の指摘7件 (CVE-2026-93687) は残す。
+
 ## 0.0.1 - 2026-10-11
 
 ### Changed
