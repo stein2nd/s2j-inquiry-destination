@@ -33,11 +33,19 @@
 | 10 | 存在しない `inquiry_type` をタブ3保存 | 保存エラー | [admin_ui_spec.md](./admin_ui_spec.md) |
 | 11 | SaaS (Backlog / Asana) | `channel=saas` 時、HTTP201 + `external_ticket_id` まで完了。body ログなし | [dispatch_execution_spec.md](./dispatch_execution_spec.md)、Service [testing_spec](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/testing_spec.md) |
 
+## GitHub Actions (main)
+
+| ワークフロー | トリガー | 結果 | Run (例) |
+| --- | --- | --- | --- |
+| PHPUnit | push `512a3aa` | Pass | [40136890264](https://github.com/stein2nd/s2j-inquiry-destination/actions/runs/40136890264) |
+| Lint Docs | push `512a3aa` | Pass | [40136890383](https://github.com/stein2nd/s2j-inquiry-destination/actions/runs/40136890383) |
+| Build distribution zip | `workflow_dispatch` (main) | Pass · artifact `s2j-inquiry-destination-dist-zip` | [40137154220](https://github.com/stein2nd/s2j-inquiry-destination/actions/runs/40137154220) |
+
 ## 記録
 
 | 日付 | 環境 | 結果 | メモ |
 | --- | --- | --- | --- |
-| — | — | — | 実装開始後に記入 |
+| 2026-10-25 | GitHub Actions (`main`) | Pass | 上表 — SaaS 実装コミット `512a3aa` 後。dist はタグ push ではなく手動 dispatch |
 
 ## 関連
 

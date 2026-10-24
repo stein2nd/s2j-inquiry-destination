@@ -2,6 +2,20 @@
 
 ## unreleased
 
+## 0.1.0 - 2026-10-25
+
+### Added
+
+* PHPUnit: `SaasOptionsTest` (`resolveForConnectionTest`)、`SaasProductCatalogTest` (`choicePhrase`)、未知 `saas_product` の `DispatchOptionsTest` — Unit **21** 件
+
+### Changed
+
+* docs: [status.md](./docs/status.md) — 機能一覧・100% 完了条件 (非 HTTPS 自動 / 手動、HTTPS 外部結合)、[test-results.md](./docs/test-results.md) — GitHub Actions Pass 表
+
+### Fixed
+
+* Unit テスト: `PHPUnit\Framework\Assert` 静的 assertion (`DispatchOptionsTest` / `ServiceIntegrationTest` 等) — IDE 解析向け
+
 ## 0.0.1 - 2026-10-24
 
 ### Added
@@ -9,7 +23,7 @@
 * SaaS dispatch: `DispatchOptions` (`channel`, `saas_product`)、製品別 `SaasOptions`、種別行の Backlog / Asana フィールド、`DestinationBuilder`、`Runner` の `wp_remote_request` + `map_dispatch_result` (D-011 / D-012)
 * 管理 UI: タブ1の SaaS 接続、**接続を検証** (`SaasConnectionProbe` / `resolveForConnectionTest`)、**チャネル切替 JS** (`serviceTabScript`)、タブ2の SaaS 列と行追加 JS、D-010 (mail 時の接続保存ガード)
 * `SaasProductCatalog::choicePhrase()` — 管理画面・エラー文の製品名リスト (ハードコード回避)
-* PHPUnit: `DispatchOptionsTest`, `DestinationBuilderTest`, `SaasConnectionProbeTest`
+* PHPUnit: `DispatchOptionsTest`, `DestinationBuilderTest`, `SaasConnectionProbeTest`, `ServiceIntegrationTest`, `TypeOptionsTest`, `ServiceGateTest` 等 (`tests/Unit/`)
 
 * docs: 管理 UI を3タブ + `WP_List_Table` (メディアライブラリ型) に再定義 ([admin_ui_spec.md](./docs/admin_ui_spec.md)、`D-007–D-010`)。実装追随 (タブ1の SaaS ガード、タブ2/3の CSS と列構成)
 * 管理 UI 実装: 3タブ、`TypesListTable` / `FormsListTable`、`DispatchOptions` / `SaasOptions`
@@ -22,7 +36,7 @@
 * タブ3: フィールド名列の入力を列幅内に収める (`assets/admin/forms-tab.css`、`FormsListTable` 表クラス)
 * `.textlintignore` で `readme.txt` を docs linter 対象外に
 * 開発: `phpstan/phpstan-phpunit` を追加し PHPStan の解析対象に `tests/` を含める (PHPUnit 型、assertion)
-* GitHub Actions: `.github/workflows/phpunit.yml` (PHP v8.3、`composer test`)、`.github/workflows/docs-lint.yml` (`npm run lint:docs`)
+* GitHub Actions: `.github/workflows/phpunit.yml` (PHP v8.3、`composer test`)、`.github/workflows/docs-lint.yml` (`npm run lint:docs`)、`.github/workflows/dist-zip.yml` (タグ `v*` / 手動 dispatch · `vendor/` 同梱 zip)
 
 ### Changed
 

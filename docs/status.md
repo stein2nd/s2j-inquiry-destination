@@ -42,7 +42,7 @@
 | 管理 UI (3タブ + タブ1 JS) | 実装済み | 0 | [§ 管理 UI、手動](#status-admin-local) (0/6) |
 | Mail 送信、ログ、SMF 写像 (手動) | コード済 / 記録なし | 0 | [§ Mail](#status-mail-local) (0/6)、[§ SMF skip](#status-smf-local) (0/1) |
 | PHPUnit / PHPStan / PHPCS / docs-lint | 実装済み | 100 | [§ 品質ゲート](#status-quality) (6/6) |
-| dist zip CI | 実装済み | 50 | [§ 配布](#status-dist) (1/2) |
+| dist zip CI | 実装済み | 100 | [§ 配布](#status-dist) (2/2) |
 | SaaS 実 API (検証 + 起票) | 未記録 | 0 | [§ HTTPS 環境](#status-https) (0/4) |
 
 ## 100% 完了条件チェックリスト
@@ -123,7 +123,7 @@
 #### 配布 {#status-dist}
 
 * [x] CI: [dist-zip.yml](../.github/workflows/dist-zip.yml) — タグ `v*` / `workflow_dispatch`
-* [ ] 記録: タグ push で artifact zip を取得し [test-results.md](./test-results.md) に Pass 記載
+* [x] 記録: artifact zip Pass — [test-results.md §GitHub Actions](./test-results.md#github-actions-main) (2026-10-25 · run [40137154220](https://github.com/stein2nd/s2j-inquiry-destination/actions/runs/40137154220))
 
 #### 管理 UI、手動 (HTTP Local) {#status-admin-local}
 
