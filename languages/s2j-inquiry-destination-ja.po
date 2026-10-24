@@ -1,0 +1,502 @@
+# Copyright (C) 2026 Koutarou ISHIKAWA
+# This file is distributed under the GPL v3 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: S2J Inquiry Destination 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-inquiry-"
+"destination\n"
+"POT-Creation-Date: 2026-10-24T16:22:12+00:00\n"
+"PO-Revision-Date: 2026-10-25 01:23+0900\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.10\n"
+"X-Domain: s2j-inquiry-destination\n"
+
+#. Plugin Name of the plugin
+#: s2j-inquiry-destination.php includes/Admin/SettingsPage.php:40
+#: includes/Admin/SettingsPage.php:41 includes/Admin/SettingsPage.php:143
+msgid "S2J Inquiry Destination"
+msgstr "S2J Inquiry Destination"
+
+#. Plugin URI of the plugin
+#: s2j-inquiry-destination.php
+msgid "https://github.com/stein2nd/s2j-inquiry-destination"
+msgstr "https://github.com/stein2nd/s2j-inquiry-destination"
+
+#. Description of the plugin
+#: s2j-inquiry-destination.php
+msgid ""
+"Route Snow Monkey Forms administrator mail through inquiry-type destinations "
+"(mail first; SaaS later)."
+msgstr ""
+"Snow Monkey Forms の管理者メールを、inquiry-type の宛先を経由して転送します "
+"(当初はメール、その後 SaaS)。"
+
+#. Author of the plugin
+#: s2j-inquiry-destination.php
+msgid "Koutarou ISHIKAWA"
+msgstr "Koutarou ISHIKAWA"
+
+#. Author URI of the plugin
+#: s2j-inquiry-destination.php
+msgid "https://stein2nd.wordpress.com"
+msgstr "https://stein2nd.wordpress.com"
+
+#: includes/Admin/FormsListTable.php:69
+msgid "Form"
+msgstr "フォーム"
+
+#: includes/Admin/FormsListTable.php:70
+msgid "Inquiry type"
+msgstr "問い合わせタイプ"
+
+#: includes/Admin/FormsListTable.php:71
+msgid "Field names (SMF control name)"
+msgstr "フィールド名 (SMF コントロール名)"
+
+#. translators: %d: number of inquiry types
+#: includes/Admin/FormsListTable.php:110 includes/Admin/TypesListTable.php:105
+#, php-format
+msgid "All (%d)"
+msgstr "すべて (%d)"
+
+#: includes/Admin/FormsListTable.php:116
+#, php-format
+msgid "Mapped (%d)"
+msgstr "マッピング済み (%d)"
+
+#: includes/Admin/FormsListTable.php:122
+#, php-format
+msgid "Unmapped (%d)"
+msgstr "未マッピング (%d)"
+
+#: includes/Admin/FormsListTable.php:130
+msgid "Remove mapping"
+msgstr "マッピングを削除"
+
+#: includes/Admin/FormsListTable.php:131
+msgid "Change inquiry type"
+msgstr "問い合わせタイプを変更"
+
+#: includes/Admin/FormsListTable.php:189
+msgid "Name"
+msgstr "名前"
+
+#: includes/Admin/FormsListTable.php:190
+msgid "Email"
+msgstr "メールアドレス"
+
+#: includes/Admin/FormsListTable.php:191
+msgid "Phone (optional)"
+msgstr "電話番号 (任意)"
+
+#: includes/Admin/FormsListTable.php:192
+msgid "Message"
+msgstr "メッセージ"
+
+#: includes/Admin/FormsListTable.php:205
+msgid "No published Snow Monkey Forms found."
+msgstr "公開されている Snow Monkey Forms は、検出されませんでした。"
+
+#: includes/Admin/FormsListTable.php:218
+msgid "Bulk inquiry type"
+msgstr "問い合わせタイプの一括処理"
+
+#: includes/Admin/FormsListTable.php:220
+msgid "Bulk inquiry type…"
+msgstr "問い合わせタイプを一括で…"
+
+#: includes/Admin/SettingsPage.php:75 includes/Admin/TypesListTable.php:45
+msgid "Type (slug)"
+msgstr "タイプ (スラッグ)"
+
+#: includes/Admin/SettingsPage.php:76 includes/Admin/TypesListTable.php:46
+msgid "Display name"
+msgstr "表示名"
+
+#: includes/Admin/SettingsPage.php:77 includes/Admin/TypesListTable.php:56
+msgid "Mail to (one address per line)"
+msgstr "メールアドレス (1行につき1つのアドレス)"
+
+#: includes/Admin/SettingsPage.php:78 includes/Admin/TypesListTable.php:50
+msgid "Project ID"
+msgstr "プロジェクト ID"
+
+#: includes/Admin/SettingsPage.php:79 includes/Admin/TypesListTable.php:52
+msgid "Issue type ID"
+msgstr "課題タイプ ID"
+
+#: includes/Admin/SettingsPage.php:80 includes/Admin/TypesListTable.php:53
+msgid "Priority ID"
+msgstr "優先度 ID"
+
+#: includes/Admin/SettingsPage.php:149
+msgid ""
+"Please activate Snow Monkey Forms. Mapped forms will not use this plugin "
+"until then."
+msgstr ""
+"Snow Monkey Forms を有効にしてください。それまでは、マッピング済みフォーム"
+"は、このプラグインを使用しません。"
+
+#: includes/Admin/SettingsPage.php:169
+msgid "Inquiry management service"
+msgstr "問い合わせ管理サービス"
+
+#: includes/Admin/SettingsPage.php:170
+msgid "Inquiry types and destinations"
+msgstr "問い合わせタイプと送信先"
+
+#: includes/Admin/SettingsPage.php:171
+msgid "Snow Monkey Forms mapping"
+msgstr "Snow Monkey Forms のマッピング"
+
+#: includes/Admin/SettingsPage.php:174
+msgid "Secondary menu"
+msgstr "サブメニュー"
+
+#: includes/Admin/SettingsPage.php:206 includes/Admin/SettingsPage.php:209
+msgid "Dispatch channel"
+msgstr "送信チャネル"
+
+#: includes/Admin/SettingsPage.php:207
+msgid ""
+"Route inquiries to WordPress mail or to a configured inquiry management SaaS "
+"via the inquiry service."
+msgstr ""
+"Inquiry Service を介して、問い合わせを WordPress のメール機能または設定済みの"
+"問い合わせ管理 SaaS に転送します。"
+
+#: includes/Admin/SettingsPage.php:211
+msgid "Mail (WordPress / wp_mail)"
+msgstr "Mail (WordPress / wp_mail)"
+
+#: includes/Admin/SettingsPage.php:213
+msgid "Inquiry management SaaS"
+msgstr "問い合わせ管理 SaaS"
+
+#: includes/Admin/SettingsPage.php:216 includes/Admin/SettingsPage.php:217
+msgid "SaaS product"
+msgstr "SaaS サービス"
+
+#: includes/Admin/SettingsPage.php:226
+msgid "SaaS connection"
+msgstr "SaaS 接続"
+
+#: includes/Admin/SettingsPage.php:230
+msgid ""
+"Configured on the server (environment or wp-config.php). Settings here will "
+"not override it."
+msgstr ""
+"サーバー側 (環境設定または wp-config.php) で設定されています。ここでの設定"
+"は、サーバー側の設定を上書きすることはありません。"
+
+#: includes/Admin/SettingsPage.php:234
+msgid "Select Inquiry management SaaS above to configure connection settings."
+msgstr "上の問い合わせ管理 SaaS を選択して、接続を設定してください。"
+
+#: includes/Admin/SettingsPage.php:237
+msgid "Secrets are not shown after save."
+msgstr "セーブ後は、秘密鍵は表示されません。"
+
+#: includes/Admin/SettingsPage.php:255
+msgid "Verify connection"
+msgstr "接続の検証"
+
+#: includes/Admin/SettingsPage.php:258
+msgid "Save service settings"
+msgstr "サービス設定の保存"
+
+#: includes/Admin/SettingsPage.php:271
+msgid ""
+"Set a project ID per inquiry type. Backlog also requires issue type and "
+"priority IDs."
+msgstr ""
+"問い合わせタイプごとに、プロジェクト ID を設定してください。Backlog では、課"
+"題タイプと優先度 ID も必要です。"
+
+#: includes/Admin/SettingsPage.php:273
+msgid ""
+"Use one mailing-list or shared inbox address when possible. Multiple "
+"addresses receive the same single To line. CC and BCC are not supported."
+msgstr ""
+"可能であれば、1つのメーリングリストまたは共有受信箱のアドレスを使用しましょ"
+"う。複数のアドレスが、同じ1つの To 行を受け取ります。"
+
+#: includes/Admin/SettingsPage.php:277
+msgid "Search inquiry types"
+msgstr "問い合わせタイプの検索"
+
+#: includes/Admin/SettingsPage.php:289
+msgid "Add new inquiry type"
+msgstr "問い合わせタイプの追加"
+
+#: includes/Admin/SettingsPage.php:290
+msgid "Save inquiry types"
+msgstr "問い合わせタイプの保存"
+
+#: includes/Admin/SettingsPage.php:300
+msgid "Add at least one inquiry type before mapping forms."
+msgstr ""
+"フォームのマッピングを行う前に、問い合わせタイプを少なくとも1つ追加してくださ"
+"い。"
+
+#: includes/Admin/SettingsPage.php:314
+msgid "Search forms"
+msgstr "フォームの検索"
+
+#: includes/Admin/SettingsPage.php:325
+msgid "Save form mappings"
+msgstr "フォーム・マッピングの保存"
+
+#: includes/Admin/SettingsPage.php:347
+msgid ""
+"Select Inquiry management SaaS as the dispatch channel before verifying the "
+"connection."
+msgstr ""
+"接続を確認する前に、配信チャネルとして、問い合わせ管理 SaaS を選択してくださ"
+"い。"
+
+#: includes/Admin/SettingsPage.php:396
+msgid "Service settings saved."
+msgstr "サービス設定が保存されました。"
+
+#: includes/Admin/SettingsPage.php:419
+msgid "Inquiry types saved."
+msgstr "問合せタイプが保存されました。"
+
+#: includes/Admin/SettingsPage.php:442
+msgid "Choose an inquiry type for the bulk action."
+msgstr "一括処理を行うため、問い合わせタイプを選択してください。"
+
+#: includes/Admin/SettingsPage.php:455
+msgid "Form mappings saved."
+msgstr "フォーム・マッピングが保存されました。"
+
+#: includes/Admin/SettingsPage.php:600
+msgid "Personal access token"
+msgstr "パーソナル・アクセストークン"
+
+#: includes/Admin/SettingsPage.php:602 includes/Admin/SettingsPage.php:626
+msgid "Status: configured"
+msgstr "ステータス: 設定済み"
+
+#: includes/Admin/SettingsPage.php:604 includes/Admin/SettingsPage.php:628
+msgid "Status: not configured"
+msgstr "ステータス: 未設定"
+
+#: includes/Admin/SettingsPage.php:609
+msgid "Leave blank to keep the current token."
+msgstr "現在のトークンを維持する場合は、空欄のままにしてください。"
+
+#: includes/Admin/SettingsPage.php:612
+msgid "API base URL (optional)"
+msgstr "API のベース URL (任意)"
+
+#: includes/Admin/SettingsPage.php:618
+msgid "Backlog space URL"
+msgstr "Backlog のスペース URL"
+
+#: includes/Admin/SettingsPage.php:624
+msgid "API key"
+msgstr "API キー"
+
+#: includes/Admin/SettingsPage.php:633
+msgid "Leave blank to keep the current key."
+msgstr "現在のキーを維持する場合は、空欄のままにしてください。"
+
+#. translators: %d: number of types without SaaS project
+#: includes/Admin/TypesListTable.php:118
+#, php-format
+msgid "No SaaS project (%d)"
+msgstr "SaaS プロジェクトなし (%d)"
+
+#. translators: %d: number of types without mail
+#: includes/Admin/TypesListTable.php:128
+#, php-format
+msgid "No mail destination (%d)"
+msgstr "メールの送信先なし (%d)"
+
+#: includes/Admin/TypesListTable.php:141
+msgid "Delete"
+msgstr "削除"
+
+#: includes/Admin/TypesListTable.php:208
+msgid "SaaS destination incomplete"
+msgstr "SaaS の宛先が不完全です"
+
+#: includes/Admin/TypesListTable.php:213
+msgid "No valid mail address"
+msgstr "妥当なメールアドレスなし"
+
+#: includes/Admin/TypesListTable.php:290
+msgid "No inquiry types found."
+msgstr "問い合わせタイプが見つかりませんでした。"
+
+#. translators: %s: supported SaaS product names (e.g. "Backlog or Asana")
+#: includes/Options/DispatchOptions.php:101
+#, php-format
+msgid "Choose %s for SaaS dispatch."
+msgstr "SaaS による配信には、%s を選択してください。"
+
+#: includes/Options/FormOptions.php:96
+msgid "Invalid inquiry type in form mapping."
+msgstr "フォーム・マッピング内で、不正な問い合わせタイプが指定されています。"
+
+#: includes/Options/SaasOptions.php:127
+msgid "SaaS credentials are not configured on the server."
+msgstr "サーバー上で、SaaS の認証情報が設定されていません。"
+
+#: includes/Options/SaasOptions.php:135
+msgid "Backlog space URL is required."
+msgstr "Backlog のスペース URL が必要です。"
+
+#: includes/Options/SaasOptions.php:167
+msgid "Enter the Backlog space URL before testing the connection."
+msgstr "接続をテストする前に、Backlog のスペース URL を入力してください。"
+
+#: includes/Options/SaasOptions.php:175
+msgid "Enter the API key before testing the connection."
+msgstr "接続をテストする前に、API キーを入力してください。"
+
+#: includes/Options/SaasOptions.php:198
+msgid "Enter the personal access token before testing the connection."
+msgstr "接続をテストする前に、パーソナル・アクセストークンを入力してください。"
+
+#. translators: %s: supported SaaS product names (e.g. "Backlog or Asana")
+#: includes/Options/SaasOptions.php:221
+#, php-format
+msgid "Select %s before testing the connection."
+msgstr "接続をテストする前に、%s を選択してください。"
+
+#: includes/Options/TypeOptions.php:19
+msgid "Sales inquiries"
+msgstr "営業に関する問い合わせ"
+
+#: includes/Options/TypeOptions.php:20
+msgid "Recruiting"
+msgstr "採用情報"
+
+#: includes/Options/TypeOptions.php:141
+msgid "Invalid inquiry type slug."
+msgstr "問い合わせタイプの、不正なスラッグです。"
+
+#. translators: %s: inquiry type slug
+#: includes/Options/TypeOptions.php:151
+#, php-format
+msgid "Cannot remove inquiry type \"%s\" while a form mapping still uses it."
+msgstr ""
+"「%s」という問い合わせタイプが、フォーム・マッピングでまだ使用されているた"
+"め、削除できません。"
+
+#: includes/Options/TypeOptions.php:178
+msgid ""
+"New inquiry type slug must start with a letter and use lowercase letters, "
+"digits, and underscores only."
+msgstr ""
+"問い合わせタイプの新しいスラッグは、小文字のアルファベットで始まり、数字とア"
+"ンダースコアのみを使用する必要があります。"
+
+#: includes/Options/TypeOptions.php:184
+msgid "That inquiry type slug already exists."
+msgstr "問い合わせタイプのそのスラッグは、すでに存在します。"
+
+#: includes/Options/TypeOptions.php:197
+msgid "At least one inquiry type is required."
+msgstr "問い合わせタイプを、少なくとも1つ指定する必要があります。"
+
+#: includes/Plugin.php:41
+msgid ""
+"S2J Inquiry Destination: s2j/inquiry-destination-service is missing. Run "
+"composer install in the plugin directory, or use the distribution zip that "
+"includes vendor/."
+msgstr ""
+"S2J Inquiry Destination: 「s2j/inquiry-destination-service」がありません。プ"
+"ラグインのディレクトリで `composer install` を実行するか、「vendor/.」を含む"
+"配布用 ZIP ファイルを使用してください。"
+
+#. translators: %s: correlation ID (non-PII)
+#: includes/SnowMonkey/MailerHook.php:181
+#, php-format
+msgid "We could not send your inquiry. Please try again later. Reference: %s"
+msgstr ""
+"お問い合わせを送信できませんでした。後ほど再度お試しください。参照番号: %s"
+
+#. translators: %s: correlation ID (non-PII)
+#: includes/SnowMonkey/MailerHook.php:190
+#, php-format
+msgid ""
+"Your inquiry was received, but we could not send a confirmation email. No "
+"resend is needed. Reference: %s"
+msgstr ""
+"お問い合わせは受け付けましたが、確認メールを送信できませんでした。再送信の必"
+"要はありません。参照番号: %s"
+
+#: includes/Support/SaasConnectionProbe.php:28
+msgid "Connection test is not available for this product."
+msgstr "このサービスでは、接続テストはご利用いただけません。"
+
+#: includes/Support/SaasConnectionProbe.php:85
+msgid "Could not reach the SaaS API. Check the URL and network connectivity."
+msgstr ""
+"SaaS API に接続できませんでした。URL およびネットワーク接続を確認してくださ"
+"い。"
+
+#: includes/Support/SaasConnectionProbe.php:93
+msgid "Connection verified successfully."
+msgstr "接続の確認に成功しました。"
+
+#. translators: %d: HTTP status code
+#: includes/Support/SaasConnectionProbe.php:101
+#, php-format
+msgid "Connection failed (HTTP %d). Check credentials and the service URL."
+msgstr ""
+"接続に失敗しました (HTTP %d)。認証情報とサービス URL を確認してください。"
+
+#: includes/Support/SaasProductCatalog.php:17
+msgid "Backlog"
+msgstr "Backlog"
+
+#: includes/Support/SaasProductCatalog.php:18
+msgid "Asana"
+msgstr "Asana"
+
+#. translators: separator between SaaS product names in a list (e.g. "Backlog, Asana")
+#: includes/Support/SaasProductCatalog.php:41
+msgctxt "SaaS product list separator"
+msgid ", "
+msgstr "、 "
+
+#: includes/Support/SaasProductCatalog.php:44
+msgctxt "SaaS product list final separator"
+msgid " or "
+msgstr "  或いは  "
+
+#: s2j-inquiry-destination.php:41
+msgid "S2J Inquiry Destination: run composer install in the plugin directory."
+msgstr ""
+"S2J Inquiry Destination: プラグインのディレクトリで「composer install」を実行"
+"してください。"
+
+#~ msgid ""
+#~ "The product goal is ticket creation in an inquiry management SaaS. Only "
+#~ "mail dispatch is active in this release."
+#~ msgstr ""
+#~ "この製品の目標は、問い合わせ管理 SaaS におけるチケット作成機能の実現です。"
+#~ "今回のリリースでは、メール送信機能のみが有効になっています。"
+
+#~ msgid "Inquiry management SaaS (coming soon)"
+#~ msgstr "問い合わせ管理 SaaS (近日リリース予定)"
+
+#~ msgid "API keys are not shown after save. SaaS dispatch is not enabled yet."
+#~ msgstr ""
+#~ "保存後も API キーは表示されません。SaaS 送信はまだ有効になっていません。"
+
+#~ msgid "Endpoint URL"
+#~ msgstr "エンドポイント URL"
+
+#~ msgid "Type"
+#~ msgstr "種類"

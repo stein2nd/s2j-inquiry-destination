@@ -1,0 +1,168 @@
+/**
+ * Inquiry types tab — list table field layout.
+ *
+ * Narrow view: Z-shaped stack. All fields visible (no core display:none on sibling tds).
+ * Do not use core `fixed` table + 25% slug column; slug and warning stack in the cell.
+ */
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-types-list-table .check-column {
+	width: 2.2em;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-types-list-table .column-slug {
+	width: auto !important;
+	vertical-align: top;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-types-list-table .s2j-inquiry-type-slug-cell {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.35em;
+	max-width: 100%;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-types-list-table .s2j-inquiry-type-slug-warning {
+	display: block;
+	max-width: 100%;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-types-list-table .s2j-inquiry-type-slug-warning .notice.inline {
+	display: block;
+	margin: 0;
+	white-space: normal;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-types-list-table .s2j-inquiry-destination-types-input.regular-text {
+	width: 21em;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-types-list-table th.column-slug .s2j-inquiry-destination-types-input.regular-text {
+	width: 21em;
+	max-width: 100%;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-types-list-table .column-mail_to textarea.large-text {
+	box-sizing: border-box;
+	max-width: 36em;
+	width: 100%;
+}
+
+@media screen and (max-width: 782px) {
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table {
+		border: 0;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table thead,
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tfoot {
+		display: none;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody {
+		display: block;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr {
+		display: grid !important;
+		grid-template-columns: 2.75em minmax(0, 1fr);
+		column-gap: 0.5em;
+		row-gap: 0.65em;
+		padding: 12px 0;
+		border-bottom: 1px solid #dcdcde;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td.check-column {
+		grid-column: 1;
+		grid-row: 1;
+		display: block !important;
+		padding: 2px 0 0;
+		vertical-align: top;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr th.column-slug {
+		grid-column: 2;
+		grid-row: 1;
+		display: block !important;
+		width: auto !important;
+		min-width: 0;
+		padding: 0 !important;
+		margin: 0 !important;
+		text-align: left !important;
+		font-weight: 400;
+		border: 0;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td.column-label {
+		grid-column: 2;
+		grid-row: 2;
+		display: block !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		text-align: left !important;
+		border: 0;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td.column-mail_to {
+		grid-column: 2;
+		grid-row: 3;
+		display: block !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		text-align: left !important;
+		border: 0;
+	}
+
+	/* Core list-table mobile: ~40% padding-left + floated ::before pushes fields right. */
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td:not(.check-column),
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr th.column-slug {
+		padding-left: 0 !important;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr:not(.inline-edit-row):not(.no-items) th.column-primary ~ td:not(.check-column) {
+		display: block !important;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr th.column-slug::before,
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td.column-label::before,
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td.column-mail_to::before {
+		content: attr(data-colname);
+		display: block !important;
+		font-weight: 600;
+		margin: 0 0 4px !important;
+		color: #1d2327;
+		float: none !important;
+		width: auto !important;
+		position: static !important;
+		left: auto !important;
+		top: auto !important;
+		padding: 0 !important;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr th.column-slug .s2j-inquiry-type-slug-cell {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr th.column-slug .s2j-inquiry-destination-types-input,
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td.column-label .s2j-inquiry-destination-types-input,
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td.column-mail_to textarea.large-text {
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
+		margin: 0 1px;
+		padding: 0 12px;
+		border-radius: 2px;
+		border-width: 1px;
+		border-style: solid;
+	}
+
+	.s2j-inquiry-destination-settings .s2j-inquiry-types-list-table-wrap .s2j-inquiry-types-list-table tbody tr td.column-mail_to textarea.large-text {
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+}

@@ -1,0 +1,23 @@
+/**
+ * Snow Monkey Forms mapping tab — field name inputs stay within the column.
+ */
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-forms-list-table .column-fields {
+	min-width: 0;
+	vertical-align: top;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-forms-list-table .column-fields p {
+	margin: 0.35em 0;
+	max-width: 100%;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-forms-list-table .column-fields label {
+	display: block;
+	max-width: 100%;
+}
+
+.s2j-inquiry-destination-settings .wp-list-table.s2j-inquiry-forms-list-table .column-fields input.regular-text {
+	box-sizing: border-box;
+	max-width: 100%;
+	width: 100%;
+}

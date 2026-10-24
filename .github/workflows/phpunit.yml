@@ -14,23 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: npm
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.2"
+          php-version: "8.3"
           tools: composer
-
-      - name: Install Node dependencies
-        run: npm ci
 
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: Run PHPUnit in wp-env
-        run: npm run phpunit:wp-env
+      # Unit tests only — do not call npm scripts such as phpunit:wp-env (undefined in this repo).
+      - name: Run PHPUnit
+        run: composer test

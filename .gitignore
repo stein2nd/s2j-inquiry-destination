@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+vendor/
 
 # Build outputs
 /dist/
@@ -13,6 +14,7 @@ node_modules/
 
 # dotenv environment variables file
 .env.test
+.env.tests
 
 # IDE files
 #.vscode/
@@ -56,6 +58,13 @@ jspm_packages/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Local WordPress PHPUnit install (bin/install-wp-tests.sh)
+tests/.wordpress/
+tests/.wordpress-tests-lib/
+
+# PHPUnit 9 result cache (project root)
+.phpunit.result.cache
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

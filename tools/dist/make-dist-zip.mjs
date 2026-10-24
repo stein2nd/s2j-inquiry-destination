@@ -14,6 +14,11 @@ if (!existsSync(distDir)) {
 	throw new Error('dist/ not found. Run `npm run dist:build` first.');
 }
 
+const vendorDir = join(repoRoot, 'vendor');
+if (!existsSync(vendorDir)) {
+	throw new Error('vendor/ not found. Run `npm run dist:build` first.');
+}
+
 const outDir = join(repoRoot, 'release');
 const stageRoot = join(repoRoot, '.dist-tmp');
 const stagePluginDir = join(stageRoot, PLUGIN_SLUG);
@@ -77,6 +82,7 @@ ensureEmptyDir(stagePluginDir);
 
 copyTree(mustExist('includes'), join(stagePluginDir, 'includes'));
 copyTree(mustExist('dist'), join(stagePluginDir, 'dist'));
+copyTree(vendorDir, join(stagePluginDir, 'vendor'));
 
 cpSync(mustExist(`${PLUGIN_SLUG}.php`), join(stagePluginDir, `${PLUGIN_SLUG}.php`));
 cpSync(mustExist('uninstall.php'), join(stagePluginDir, 'uninstall.php'));

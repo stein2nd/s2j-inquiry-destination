@@ -15,6 +15,7 @@ on:
       - "package.json"
 
 jobs:
+  # Node-only (no PHP / wp-env). Do not add npm scripts that are not defined in package.json.
   lint-docs:
     runs-on: ubuntu-latest
     steps:

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="s2j-plugin">
+	<description>PSR-12 for namespaced plugin PHP (includes/).</description>
+	<rule ref="PSR12">
+		<exclude name="Generic.Files.LineLength"/>
+	</rule>
+	<!-- WP_List_Table overrides use WordPress snake_case method names. -->
+	<rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+		<exclude-pattern>includes/Admin/*ListTable.php</exclude-pattern>
+	</rule>
+	<config name="php_version" value="80100"/>
+	<file>includes</file>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/dist/*</exclude-pattern>
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+</ruleset>

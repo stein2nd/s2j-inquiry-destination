@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ruleset name="s2j-plugin-wpcs">
+	<description>WordPress Coding Standards (plugin root PHP + includes/).</description>
+	<rule ref="WordPress">
+		<exclude name="WordPress.Files.FileName"/>
+	</rule>
+	<config name="minimum_supported_wp_version" value="6.9"/>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/dist/*</exclude-pattern>
+	<exclude-pattern>*/src/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/phpstan/*</exclude-pattern>
+	<exclude-pattern>*/includes/*</exclude-pattern>
+	<file>s2j-inquiry-destination.php</file>
+	<file>uninstall.php</file>
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+</ruleset>
