@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: S2J Inquiry Destination 0.0.1\n"
+"Project-Id-Version: S2J Inquiry Destination 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-inquiry-destination\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-24T16:22:12+00:00\n"
+"POT-Creation-Date: 2026-10-25T22:10:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: s2j-inquiry-destination\n"
@@ -29,7 +29,7 @@ msgstr ""
 
 #. Description of the plugin
 #: s2j-inquiry-destination.php
-msgid "Route Snow Monkey Forms administrator mail through inquiry-type destinations (mail first; SaaS later)."
+msgid "Route Snow Monkey Forms administrator mail through inquiry-type destinations (mail or inquiry-management SaaS)."
 msgstr ""
 
 #. Author of the plugin
