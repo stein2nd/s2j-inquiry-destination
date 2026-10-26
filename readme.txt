@@ -4,7 +4,7 @@ Tags: snow-monkey-forms, inquiry, mail
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 8.3
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,6 +28,9 @@ This plugin replaces Snow Monkey Forms administrator mail for mapped forms. Inqu
 See the plugin README on GitHub for the pinned Snow Monkey Forms semver used in integration testing.
 
 == Changelog ==
+
+= 0.1.1 =
+* Fix wp_mail hook so password reset and other core mail no longer fatal; autoreply failure uses wp_mail_failed.
 
 = 0.1.0 =
 * SaaS dispatch (Backlog / Asana), tab1 connection verify and channel UI, expanded PHPUnit and docs status matrix.

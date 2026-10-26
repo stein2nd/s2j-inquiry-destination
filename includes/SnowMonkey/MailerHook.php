@@ -25,7 +25,7 @@ final class MailerHook
         add_filter('snow_monkey_forms/administrator_mailer/is_sended', array( self::class, 'filterAdministratorIsSended' ), 10, 3);
         add_action('snow_monkey_forms/administrator_mailer/after_send', array( self::class, 'afterAdministratorSend' ), 10, 4);
         add_filter('snow_monkey_forms/auto_reply_mailer/is_sended', array( self::class, 'filterAutoReplyIsSended' ), 10, 3);
-        add_filter('wp_mail_succeeded', array( self::class, 'filterWpMailSucceeded' ), 10, 2);
+        add_action('wp_mail_failed', array( self::class, 'onWpMailFailed' ), 10, 1);
         add_filter('snow_monkey_forms/system_error/message', array( self::class, 'filterSystemErrorMessage' ), 10, 3);
         add_filter('snow_monkey_forms/complete/message', array( self::class, 'filterCompleteMessage' ), 10, 3);
     }
@@ -115,17 +115,14 @@ final class MailerHook
     }
 
     /**
-     * @param mixed $success
-     * @param array<string, mixed> $atts
+     * WordPress fires {@see wp_mail_failed} with a single {@see WP_Error} (not a filter).
      */
-    public static function filterWpMailSucceeded($success, $atts): bool
+    public static function onWpMailFailed(\WP_Error $error): void
     {
-        if (! RequestContext::inAutoReplyPhase() || ! RequestContext::administratorMailSucceeded()) {
-            return (bool) $success;
-        }
+        unset($error);
 
-        if (true === $success) {
-            return true;
+        if (! RequestContext::inAutoReplyPhase() || ! RequestContext::administratorMailSucceeded()) {
+            return;
         }
 
         $correlation_id = RequestContext::getCorrelationId();
@@ -139,8 +136,6 @@ final class MailerHook
 
         InquiryLogger::logAttempt($correlation_id, $inquiry_type, $form_id, false, 'autoreply_failed');
         RequestContext::markAutoreplyFailed();
-
-        return true;
     }
 
     public static function filterSystemErrorMessage(string $message, Responser $responser, Setting $setting): string

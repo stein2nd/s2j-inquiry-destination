@@ -1,7 +1,7 @@
 /**
- * 初版は管理 UI が PHP のみのため、Vite エントリは未使用です。
- * `npm run build:dev` / `build:production` / `dist:build` は
- * tools/dist/ensure-dist-assets.mjs で dist/ placeholder を生成します。
+ * 初版は管理 UI が PHP のみ。JS を追加する場合は dist/js/s2j-inquiry-destination-settings.js
+ * (npm `build:*:admin` → Vite target `settings`)。wp-plugin-spec I18N §2.3。
+ * 現状の dist placeholder は tools/dist/ensure-dist-assets.mjs。
  */
 import { defineConfig } from 'vite';
 

@@ -1,24 +1,23 @@
-# Copyright (C) 2026 Koutarou ISHIKAWA
-# This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: S2J Inquiry Destination 0.0.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-inquiry-"
-"destination\n"
-"POT-Creation-Date: 2026-10-25T22:10:37+00:00\n"
-"PO-Revision-Date: 2026-10-26 07:14+0900\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-inquiry-destination\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-25T22:10:37+00:00\n"
+"PO-Revision-Date: 2026-10-27 01:51+0900\n"
+"Language: ja\n"
 "X-Generator: Poedit 3.10\n"
 "X-Domain: s2j-inquiry-destination\n"
 
 #. Plugin Name of the plugin
-#: s2j-inquiry-destination.php includes/Admin/SettingsPage.php:40
-#: includes/Admin/SettingsPage.php:41 includes/Admin/SettingsPage.php:143
+#: s2j-inquiry-destination.php
+#: includes/Admin/SettingsPage.php:40
+#: includes/Admin/SettingsPage.php:41
+#: includes/Admin/SettingsPage.php:143
 msgid "S2J Inquiry Destination"
 msgstr "S2J Inquiry Destination"
 
@@ -29,12 +28,8 @@ msgstr "https://github.com/stein2nd/s2j-inquiry-destination"
 
 #. Description of the plugin
 #: s2j-inquiry-destination.php
-msgid ""
-"Route Snow Monkey Forms administrator mail through inquiry-type destinations "
-"(mail or inquiry-management SaaS)."
-msgstr ""
-"Snow Monkey Forms の管理者宛てメールを、inquiry-type の配信先 (メールまたは問"
-"い合わせ管理用 SaaS) 経由で転送します。"
+msgid "Route Snow Monkey Forms administrator mail through inquiry-type destinations (mail or inquiry-management SaaS)."
+msgstr "Snow Monkey Forms の管理者宛てメールを、inquiry-type の配信先 (メールまたは問い合わせ管理用 SaaS) 経由で転送します。"
 
 #. Author of the plugin
 #: s2j-inquiry-destination.php
@@ -59,7 +54,8 @@ msgid "Field names (SMF control name)"
 msgstr "フィールド名 (SMF コントロール名)"
 
 #. translators: %d: number of inquiry types
-#: includes/Admin/FormsListTable.php:110 includes/Admin/TypesListTable.php:105
+#: includes/Admin/FormsListTable.php:110
+#: includes/Admin/TypesListTable.php:105
 #, php-format
 msgid "All (%d)"
 msgstr "すべて (%d)"
@@ -110,37 +106,39 @@ msgstr "問い合わせタイプの一括処理"
 msgid "Bulk inquiry type…"
 msgstr "問い合わせタイプを一括で…"
 
-#: includes/Admin/SettingsPage.php:75 includes/Admin/TypesListTable.php:45
+#: includes/Admin/SettingsPage.php:75
+#: includes/Admin/TypesListTable.php:45
 msgid "Type (slug)"
 msgstr "タイプ (スラッグ)"
 
-#: includes/Admin/SettingsPage.php:76 includes/Admin/TypesListTable.php:46
+#: includes/Admin/SettingsPage.php:76
+#: includes/Admin/TypesListTable.php:46
 msgid "Display name"
 msgstr "表示名"
 
-#: includes/Admin/SettingsPage.php:77 includes/Admin/TypesListTable.php:56
+#: includes/Admin/SettingsPage.php:77
+#: includes/Admin/TypesListTable.php:56
 msgid "Mail to (one address per line)"
 msgstr "メールアドレス (1行につき1つのアドレス)"
 
-#: includes/Admin/SettingsPage.php:78 includes/Admin/TypesListTable.php:50
+#: includes/Admin/SettingsPage.php:78
+#: includes/Admin/TypesListTable.php:50
 msgid "Project ID"
 msgstr "プロジェクト ID"
 
-#: includes/Admin/SettingsPage.php:79 includes/Admin/TypesListTable.php:52
+#: includes/Admin/SettingsPage.php:79
+#: includes/Admin/TypesListTable.php:52
 msgid "Issue type ID"
 msgstr "課題タイプ ID"
 
-#: includes/Admin/SettingsPage.php:80 includes/Admin/TypesListTable.php:53
+#: includes/Admin/SettingsPage.php:80
+#: includes/Admin/TypesListTable.php:53
 msgid "Priority ID"
 msgstr "優先度 ID"
 
 #: includes/Admin/SettingsPage.php:149
-msgid ""
-"Please activate Snow Monkey Forms. Mapped forms will not use this plugin "
-"until then."
-msgstr ""
-"Snow Monkey Forms を有効にしてください。それまでは、マッピング済みフォーム"
-"は、このプラグインを使用しません。"
+msgid "Please activate Snow Monkey Forms. Mapped forms will not use this plugin until then."
+msgstr "Snow Monkey Forms を有効にしてください。それまでは、マッピング済みフォームは、このプラグインを使用しません。"
 
 #: includes/Admin/SettingsPage.php:169
 msgid "Inquiry management service"
@@ -158,17 +156,14 @@ msgstr "Snow Monkey Forms のマッピング"
 msgid "Secondary menu"
 msgstr "サブメニュー"
 
-#: includes/Admin/SettingsPage.php:206 includes/Admin/SettingsPage.php:209
+#: includes/Admin/SettingsPage.php:206
+#: includes/Admin/SettingsPage.php:209
 msgid "Dispatch channel"
 msgstr "送信チャネル"
 
 #: includes/Admin/SettingsPage.php:207
-msgid ""
-"Route inquiries to WordPress mail or to a configured inquiry management SaaS "
-"via the inquiry service."
-msgstr ""
-"Inquiry Service を介して、問い合わせを WordPress のメール機能または設定済みの"
-"問い合わせ管理 SaaS に転送します。"
+msgid "Route inquiries to WordPress mail or to a configured inquiry management SaaS via the inquiry service."
+msgstr "Inquiry Service を介して、問い合わせを WordPress のメール機能または設定済みの問い合わせ管理 SaaS に転送します。"
 
 #: includes/Admin/SettingsPage.php:211
 msgid "Mail (WordPress / wp_mail)"
@@ -178,7 +173,8 @@ msgstr "Mail (WordPress / wp_mail)"
 msgid "Inquiry management SaaS"
 msgstr "問い合わせ管理 SaaS"
 
-#: includes/Admin/SettingsPage.php:216 includes/Admin/SettingsPage.php:217
+#: includes/Admin/SettingsPage.php:216
+#: includes/Admin/SettingsPage.php:217
 msgid "SaaS product"
 msgstr "SaaS サービス"
 
@@ -187,12 +183,8 @@ msgid "SaaS connection"
 msgstr "SaaS 接続"
 
 #: includes/Admin/SettingsPage.php:230
-msgid ""
-"Configured on the server (environment or wp-config.php). Settings here will "
-"not override it."
-msgstr ""
-"サーバー側 (環境設定または wp-config.php) で設定されています。ここでの設定"
-"は、サーバー側の設定を上書きすることはありません。"
+msgid "Configured on the server (environment or wp-config.php). Settings here will not override it."
+msgstr "サーバー側 (環境設定または wp-config.php) で設定されています。ここでの設定は、サーバー側の設定を上書きすることはありません。"
 
 #: includes/Admin/SettingsPage.php:234
 msgid "Select Inquiry management SaaS above to configure connection settings."
@@ -211,20 +203,12 @@ msgid "Save service settings"
 msgstr "サービス設定の保存"
 
 #: includes/Admin/SettingsPage.php:271
-msgid ""
-"Set a project ID per inquiry type. Backlog also requires issue type and "
-"priority IDs."
-msgstr ""
-"問い合わせタイプごとに、プロジェクト ID を設定してください。Backlog では、課"
-"題タイプと優先度 ID も必要です。"
+msgid "Set a project ID per inquiry type. Backlog also requires issue type and priority IDs."
+msgstr "問い合わせタイプごとに、プロジェクト ID を設定してください。Backlog では、課題タイプと優先度 ID も必要です。"
 
 #: includes/Admin/SettingsPage.php:273
-msgid ""
-"Use one mailing-list or shared inbox address when possible. Multiple "
-"addresses receive the same single To line. CC and BCC are not supported."
-msgstr ""
-"可能であれば、1つのメーリングリストまたは共有受信箱のアドレスを使用しましょ"
-"う。複数のアドレスが、同じ1つの To 行を受け取ります。"
+msgid "Use one mailing-list or shared inbox address when possible. Multiple addresses receive the same single To line. CC and BCC are not supported."
+msgstr "可能であれば、1つのメーリングリストまたは共有受信箱のアドレスを使用しましょう。複数のアドレスが、同じ1つの To 行を受け取ります。"
 
 #: includes/Admin/SettingsPage.php:277
 msgid "Search inquiry types"
@@ -240,9 +224,7 @@ msgstr "問い合わせタイプの保存"
 
 #: includes/Admin/SettingsPage.php:300
 msgid "Add at least one inquiry type before mapping forms."
-msgstr ""
-"フォームのマッピングを行う前に、問い合わせタイプを少なくとも1つ追加してくださ"
-"い。"
+msgstr "フォームのマッピングを行う前に、問い合わせタイプを少なくとも1つ追加してください。"
 
 #: includes/Admin/SettingsPage.php:314
 msgid "Search forms"
@@ -253,12 +235,8 @@ msgid "Save form mappings"
 msgstr "フォーム・マッピングの保存"
 
 #: includes/Admin/SettingsPage.php:347
-msgid ""
-"Select Inquiry management SaaS as the dispatch channel before verifying the "
-"connection."
-msgstr ""
-"接続を確認する前に、配信チャネルとして、問い合わせ管理 SaaS を選択してくださ"
-"い。"
+msgid "Select Inquiry management SaaS as the dispatch channel before verifying the connection."
+msgstr "接続を確認する前に、配信チャネルとして、問い合わせ管理 SaaS を選択してください。"
 
 #: includes/Admin/SettingsPage.php:396
 msgid "Service settings saved."
@@ -280,11 +258,13 @@ msgstr "フォーム・マッピングが保存されました。"
 msgid "Personal access token"
 msgstr "パーソナル・アクセストークン"
 
-#: includes/Admin/SettingsPage.php:602 includes/Admin/SettingsPage.php:626
+#: includes/Admin/SettingsPage.php:602
+#: includes/Admin/SettingsPage.php:626
 msgid "Status: configured"
 msgstr "ステータス: 設定済み"
 
-#: includes/Admin/SettingsPage.php:604 includes/Admin/SettingsPage.php:628
+#: includes/Admin/SettingsPage.php:604
+#: includes/Admin/SettingsPage.php:628
 msgid "Status: not configured"
 msgstr "ステータス: 未設定"
 
@@ -388,17 +368,11 @@ msgstr "問い合わせタイプの、不正なスラッグです。"
 #: includes/Options/TypeOptions.php:151
 #, php-format
 msgid "Cannot remove inquiry type \"%s\" while a form mapping still uses it."
-msgstr ""
-"「%s」という問い合わせタイプが、フォーム・マッピングでまだ使用されているた"
-"め、削除できません。"
+msgstr "「%s」という問い合わせタイプが、フォーム・マッピングでまだ使用されているため、削除できません。"
 
 #: includes/Options/TypeOptions.php:178
-msgid ""
-"New inquiry type slug must start with a letter and use lowercase letters, "
-"digits, and underscores only."
-msgstr ""
-"問い合わせタイプの新しいスラッグは、小文字のアルファベットで始まり、数字とア"
-"ンダースコアのみを使用する必要があります。"
+msgid "New inquiry type slug must start with a letter and use lowercase letters, digits, and underscores only."
+msgstr "問い合わせタイプの新しいスラッグは、小文字のアルファベットで始まり、数字とアンダースコアのみを使用する必要があります。"
 
 #: includes/Options/TypeOptions.php:184
 msgid "That inquiry type slug already exists."
@@ -409,31 +383,20 @@ msgid "At least one inquiry type is required."
 msgstr "問い合わせタイプを、少なくとも1つ指定する必要があります。"
 
 #: includes/Plugin.php:41
-msgid ""
-"S2J Inquiry Destination: s2j/inquiry-destination-service is missing. Run "
-"composer install in the plugin directory, or use the distribution zip that "
-"includes vendor/."
-msgstr ""
-"S2J Inquiry Destination: 「s2j/inquiry-destination-service」がありません。プ"
-"ラグインのディレクトリで `composer install` を実行するか、「vendor/.」を含む"
-"配布用 ZIP ファイルを使用してください。"
+msgid "S2J Inquiry Destination: s2j/inquiry-destination-service is missing. Run composer install in the plugin directory, or use the distribution zip that includes vendor/."
+msgstr "S2J Inquiry Destination: 「s2j/inquiry-destination-service」がありません。プラグインのディレクトリで `composer install` を実行するか、「vendor/.」を含む配布用 ZIP ファイルを使用してください。"
 
 #. translators: %s: correlation ID (non-PII)
 #: includes/SnowMonkey/MailerHook.php:181
 #, php-format
 msgid "We could not send your inquiry. Please try again later. Reference: %s"
-msgstr ""
-"お問い合わせを送信できませんでした。後ほど再度お試しください。参照番号: %s"
+msgstr "お問い合わせを送信できませんでした。後ほど再度お試しください。参照番号: %s"
 
 #. translators: %s: correlation ID (non-PII)
 #: includes/SnowMonkey/MailerHook.php:190
 #, php-format
-msgid ""
-"Your inquiry was received, but we could not send a confirmation email. No "
-"resend is needed. Reference: %s"
-msgstr ""
-"お問い合わせは受け付けましたが、確認メールを送信できませんでした。再送信の必"
-"要はありません。参照番号: %s"
+msgid "Your inquiry was received, but we could not send a confirmation email. No resend is needed. Reference: %s"
+msgstr "お問い合わせは受け付けましたが、確認メールを送信できませんでした。再送信の必要はありません。参照番号: %s"
 
 #: includes/Support/SaasConnectionProbe.php:28
 msgid "Connection test is not available for this product."
@@ -441,9 +404,7 @@ msgstr "このサービスでは、接続テストはご利用いただけませ
 
 #: includes/Support/SaasConnectionProbe.php:85
 msgid "Could not reach the SaaS API. Check the URL and network connectivity."
-msgstr ""
-"SaaS API に接続できませんでした。URL およびネットワーク接続を確認してくださ"
-"い。"
+msgstr "SaaS API に接続できませんでした。URL およびネットワーク接続を確認してください。"
 
 #: includes/Support/SaasConnectionProbe.php:93
 msgid "Connection verified successfully."
@@ -453,8 +414,7 @@ msgstr "接続の確認に成功しました。"
 #: includes/Support/SaasConnectionProbe.php:101
 #, php-format
 msgid "Connection failed (HTTP %d). Check credentials and the service URL."
-msgstr ""
-"接続に失敗しました (HTTP %d)。認証情報とサービス URL を確認してください。"
+msgstr "接続に失敗しました (HTTP %d)。認証情報とサービス URL を確認してください。"
 
 #: includes/Support/SaasProductCatalog.php:17
 msgid "Backlog"
@@ -477,23 +437,16 @@ msgstr "  或いは  "
 
 #: s2j-inquiry-destination.php:41
 msgid "S2J Inquiry Destination: run composer install in the plugin directory."
-msgstr ""
-"S2J Inquiry Destination: プラグインのディレクトリで「composer install」を実行"
-"してください。"
+msgstr "S2J Inquiry Destination: プラグインのディレクトリで「composer install」を実行してください。"
 
-#~ msgid ""
-#~ "The product goal is ticket creation in an inquiry management SaaS. Only "
-#~ "mail dispatch is active in this release."
-#~ msgstr ""
-#~ "この製品の目標は、問い合わせ管理 SaaS におけるチケット作成機能の実現です。"
-#~ "今回のリリースでは、メール送信機能のみが有効になっています。"
+#~ msgid "The product goal is ticket creation in an inquiry management SaaS. Only mail dispatch is active in this release."
+#~ msgstr "この製品の目標は、問い合わせ管理 SaaS におけるチケット作成機能の実現です。今回のリリースでは、メール送信機能のみが有効になっています。"
 
 #~ msgid "Inquiry management SaaS (coming soon)"
 #~ msgstr "問い合わせ管理 SaaS (近日リリース予定)"
 
 #~ msgid "API keys are not shown after save. SaaS dispatch is not enabled yet."
-#~ msgstr ""
-#~ "保存後も API キーは表示されません。SaaS 送信はまだ有効になっていません。"
+#~ msgstr "保存後も API キーは表示されません。SaaS 送信はまだ有効になっていません。"
 
 #~ msgid "Endpoint URL"
 #~ msgstr "エンドポイント URL"

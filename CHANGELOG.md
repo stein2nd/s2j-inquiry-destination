@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 0.1.1 - 2026-10-26
+
+### Fixed
+
+* `MailerHook`: Core の `wp_mail_succeeded` (引数1つの action) を filter の2引数で受けていたため、パスワードリセット等の通常 `wp_mail` で fatal になる問題 — 自動返信の失敗検知を `wp_mail_failed` (`onWpMailFailed`) に移行 (D-005)
+
 ## 0.1.0 - 2026-10-25
 
 ### Added
