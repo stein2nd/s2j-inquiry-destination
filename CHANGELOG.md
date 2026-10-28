@@ -2,6 +2,26 @@
 
 ## unreleased
 
+## 0.2.0 - 2026-10-27
+
+### Added
+
+* 管理 UI (タブ1): Mail チャネル時の **`Email Auth`** 導入案内 ([mail_deliverability_spec.md](./docs/mail_deliverability_spec.md)、D-014)
+
+### Changed
+
+* `Dispatch\Runner`: Mail 経路の `$headers` から **`From:` を削除** — Transport (`wp_mail_from` / `Email Auth`) に委譲 (D-015)
+* Composer: `s2j/inquiry-destination-service` **^0.4.0** (Transport 境界、[Service transport_boundary_spec](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/transport_boundary_spec.md))
+* 管理 UI: Mail 認証案内の表示名を **`email-auth` の Plugin Name** から取得 (未インストール時のみフォールバック文言)
+
+### Fixed
+
+* PHPStan: `SettingsPage` の `require_once` 解決用に `phpstan/fixtures/wp-admin/includes/plugin.php` を追加 (`npm run lint:php`)
+
+### Tests
+
+* `ServiceIntegrationTest`: Mail 材料が Service v0.4の **4キーのみ** であることを assertion
+
 ## 0.1.1 - 2026-10-26
 
 ### Fixed

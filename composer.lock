@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9012810868a806441cba6fcb7cc5ef0c",
+    "content-hash": "5db9dc8d387877566429c53788e58101",
     "packages": [
         {
             "name": "s2j/inquiry-destination-service",
-            "version": "v0.3.0",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stein2nd/s2j-inquiry-destination-service.git",
-                "reference": "5830e82502bfff20e29eef5948f2eebe4faff0c9"
+                "reference": "fb1597ad46291165ce11a562748913b4b986697d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stein2nd/s2j-inquiry-destination-service/zipball/5830e82502bfff20e29eef5948f2eebe4faff0c9",
-                "reference": "5830e82502bfff20e29eef5948f2eebe4faff0c9",
+                "url": "https://api.github.com/repos/stein2nd/s2j-inquiry-destination-service/zipball/fb1597ad46291165ce11a562748913b4b986697d",
+                "reference": "fb1597ad46291165ce11a562748913b4b986697d",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "issues": "https://github.com/stein2nd/s2j-inquiry-destination-service/issues",
                 "source": "https://github.com/stein2nd/s2j-inquiry-destination-service"
             },
-            "time": "2026-10-24T11:40:55+00:00"
+            "time": "2026-10-27T05:43:22+00:00"
         }
     ],
     "packages-dev": [

@@ -22,6 +22,9 @@ final class SettingsPage
 
     private const TAB_FORMS = 'forms';
 
+    /** @var non-empty-string */
+    private const EMAIL_AUTH_PLUGIN = 'email-auth/email-auth.php';
+
     public static function menuSlug(): string
     {
         return self::MENU_SLUG;
@@ -212,6 +215,8 @@ final class SettingsPage
         echo '<label><input type="radio" name="channel" value="saas" ' . checked($dispatch['channel'], DispatchOptions::CHANNEL_SAAS, false) . ' /> '
             . esc_html__('Inquiry management SaaS', 's2j-inquiry-destination') . '</label>';
         echo '</fieldset>';
+
+        self::renderServiceMailAuthNotice(! $is_saas);
 
         echo '<h2>' . esc_html__('SaaS product', 's2j-inquiry-destination') . '</h2>';
         echo '<fieldset class="s2j-inquiry-destination-service-saas-product"><legend class="screen-reader-text">' . esc_html__('SaaS product', 's2j-inquiry-destination') . '</legend>';
@@ -637,6 +642,91 @@ final class SettingsPage
         echo '</div>';
     }
 
+    private static function renderServiceMailAuthNotice(bool $visible): void
+    {
+        $hidden = $visible ? '' : ' hidden';
+        echo '<div class="notice notice-info inline s2j-inquiry-destination-service-mail-auth-notice' . esc_attr($hidden) . '"><p>';
+
+        $plugin_name = self::emailAuthDisplayName();
+
+        if (self::isEmailAuthActive()) {
+            $settings_url = admin_url('options-general.php?page=email-auth');
+            $settings_link_label = sprintf(
+                /* translators: %s: mail authentication plugin name from its plugin header */
+                __('Settings → %s', 's2j-inquiry-destination'),
+                $plugin_name
+            );
+            echo wp_kses(
+                sprintf(
+                    /* translators: 1: mail authentication plugin name, 2: settings screen link */
+                    __('%1$s is active. Configure DKIM, SPF, and DMARC in %2$s.', 's2j-inquiry-destination'),
+                    esc_html($plugin_name),
+                    '<a href="' . esc_url($settings_url) . '">' . esc_html($settings_link_label) . '</a>'
+                ),
+                array(
+                    'a' => array(
+                        'href' => array(),
+                    ),
+                )
+            );
+        } else {
+            echo wp_kses(
+                sprintf(
+                    /* translators: %s: link to the mail authentication companion on WordPress.org */
+                    __(
+                        'If you need DKIM, SPF, or DMARC for outgoing mail, consider installing the %s plugin. It applies to all wp_mail delivery, including inquiries from this plugin.',
+                        's2j-inquiry-destination'
+                    ),
+                    '<a href="https://wordpress.org/plugins/email-auth/" target="_blank" rel="noopener noreferrer">'
+                    . esc_html($plugin_name)
+                    . '</a>'
+                ),
+                array(
+                    'a' => array(
+                        'href'   => array(),
+                        'target' => array(),
+                        'rel'    => array(),
+                    ),
+                )
+            );
+        }
+
+        echo '</p></div>';
+    }
+
+    private static function emailAuthDisplayName(): string
+    {
+        if (! function_exists('get_plugins')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        if (function_exists('get_plugins')) {
+            $plugins = get_plugins();
+            if (isset($plugins[ self::EMAIL_AUTH_PLUGIN ]['Name'])) {
+                $name = trim((string) $plugins[ self::EMAIL_AUTH_PLUGIN ]['Name']);
+                if ('' !== $name) {
+                    return $name;
+                }
+            }
+        }
+
+        /* translators: fallback display name when the mail authentication companion is not installed locally */
+        return __('Email Auth', 's2j-inquiry-destination');
+    }
+
+    private static function isEmailAuthActive(): bool
+    {
+        if (defined('EAUTH_PLUGIN_VERSION')) {
+            return true;
+        }
+
+        if (! function_exists('is_plugin_active')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        return is_plugin_active(self::EMAIL_AUTH_PLUGIN);
+    }
+
     private static function serviceTabScript(): string
     {
         return <<<'JS'
@@ -652,6 +742,7 @@ final class SettingsPage
 	const panelsWrap = form.querySelector('.s2j-inquiry-destination-service-connection-panels');
 	const serverNotice = form.querySelector('.s2j-inquiry-destination-service-server-notice');
 	const verifyWrap = form.querySelector('.s2j-inquiry-destination-service-verify-wrap');
+	const mailAuthNotice = form.querySelector('.s2j-inquiry-destination-service-mail-auth-notice');
 	const connectionPanels = form.querySelectorAll('.s2j-inquiry-destination-service-connection-panel');
 	const connectionInputs = form.querySelectorAll('.s2j-inquiry-destination-service-connection-input');
 
@@ -689,6 +780,7 @@ final class SettingsPage
 			setHidden(panelsWrap, !isSaas);
 		}
 		setHidden(verifyWrap, !isSaas);
+		setHidden(mailAuthNotice, isSaas);
 
 		connectionPanels.forEach((panel) => {
 			const match = panel.getAttribute('data-s2j-product') === product;

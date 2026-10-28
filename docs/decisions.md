@@ -1,4 +1,4 @@
-# S2J Inquiry Destination - 決定事項 (初版)
+# S2J Inquiry Destination - 決定事項 (初版 + v0.2)
 
 採用・合意前の **実装固定** を ADR 風に記録します。詳細手順は、各分割 spec が正本です。ガバナンス: [governance/documentation_governance.md](./governance/documentation_governance.md)。
 
@@ -7,15 +7,18 @@
 | D-001 | Dispatch Runner は、`administrator_mailer/is_sended` で **最大1回**。`skip` では呼ばない | [snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md) |
 | D-002 | 管理者宛の成功フラグは、同一リクエストの `MailerHook` 内 **RequestContext** (小さなオブジェクト) | [snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md) |
 | D-003 | `mail_to` UI は、textarea **改行区切り** → 保存時 `sanitize_email` 配列 | [admin_ui_spec.md](./admin_ui_spec.md) |
-| D-004 | 種別表は、**可変** (行追加・削除)。登録名は、Service0.2+ のスラッグ規則。削除時は、フォーム写像参照中は拒否 | [admin_ui_spec.md](./admin_ui_spec.md) |
+| D-004 | 種別表は、**可変** (行追加・削除)。登録名は、Service v0.2+ のスラッグ規則。削除時は、フォーム写像参照中は拒否 | [admin_ui_spec.md](./admin_ui_spec.md) |
 | D-005 | 自動返信のみ失敗: 完了維持 + ログ `autoreply_failed` + 完了画面に短い i18n Notice と **相関 ID** | [dispatch_execution_spec.md](./dispatch_execution_spec.md) |
 | D-006 | SMF 検証下限バージョンは、`snow_monkey_forms_spec.md` §前提が正本。README に同じ semver を1行 | [snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md) |
-| D-007 | 管理画面は、**3タブ** (`service` / `types` / `forms`)。**タブごと** 別 HTML フォーム・別 nonce ・**当該 option のみ** POST 更新 | [admin_ui_spec.md](./admin_ui_spec.md) |
+| D-007 | 管理画面は、**3タブ** (`service` / `types` / `forms`)。**タブごと** 別 HTML フォーム、別 nonce、**当該 option のみ** POST 更新 | [admin_ui_spec.md](./admin_ui_spec.md) |
 | D-008 | タブ2・タブ3の一覧は、**`WP_List_Table`**。Bulk / Views / 検索 / 列ソートは、**メディアライブラリ** 一覧に倣う | [admin_ui_spec.md](./admin_ui_spec.md) |
 | D-009 | サイト全体 dispatch チャネルは、タブ1の `s2j_inquiry_destination_dispatch.channel` (`mail` / `saas`) | [saas_connection_spec.md](./saas_connection_spec.md) |
 | D-010 | **`channel=mail` の間**、タブ1の SaaS 接続は **保存 POST を無視**。UI は初期 `disabled` + **チャネル切替 JS** で mail/saas を同期 | [admin_ui_spec.md](./admin_ui_spec.md) §タブ1 |
 | D-011 | `saas_product` (`backlog` / `asana`) → Service **`destination.kind` = `saas_{saas_product}`** | [data_dictionary.md](./data_dictionary.md) |
-| D-012 | SaaS 対応後、Runner は material 型で **`wp_mail` または `wp_remote_request`** を1箇所で分岐。Service4関数の呼び出し口は Runner のみ | [dispatch_execution_spec.md](./dispatch_execution_spec.md) |
+| D-012 | SaaS 対応後、Runner は material 型で **`wp_mail` または `wp_remote_request`** を1箇所で分岐。Service の4関数の呼び出し口は Runner のみ | [dispatch_execution_spec.md](./dispatch_execution_spec.md) |
+| D-013 | **Mail 認証 (DKIM/SPF/DMARC 実装、DNS 編集)** を本プラグインに **実装しない** | [mail_deliverability_spec.md](./mail_deliverability_spec.md) |
+| D-014 | **`Email Auth`** は **推奨コンパニオン**。`require`、同梱、必須 activation **しない** | [mail_deliverability_spec.md](./mail_deliverability_spec.md)、[admin_ui_spec.md](./admin_ui_spec.md) §メール認証案内 |
+| D-015 | Mail 経路の **`From:`** は Runner の `$headers` に **含めない**。`wp_mail_from` / `Email Auth` に委譲。**Reply-To** はペイロード `email` (有効時のみ) | [dispatch_execution_spec.md](./dispatch_execution_spec.md) § Mail |
 
 ## D-001— Runner の呼び出し位置
 
@@ -31,7 +34,7 @@
 
 ## D-003 / D-004 / D-007— 管理 UI
 
-* タブ1 (service) ・タブ2 (types) ・タブ3 (forms) は、**別 HTML フォーム・別 nonce** (D-007)。保存時は、**当該 option キーのみ** 更新し、他 option は触らない。
+* タブ1 (service)、タブ2 (types)、タブ3 (forms) は、**別 HTML フォーム・別 nonce** (D-007)。保存時は、**当該 option キーのみ** 更新し、他 option は触らない。
 * タブ3保存時、`inquiry_type` は `s2j_inquiry_destination_types` に存在する登録名のみ許可 (不存在は保存エラー)。
 * タブ2の **Add row** は、保存ボタン左隣。行追加はクライアント側、確定は types 保存 POST。
 
@@ -49,7 +52,7 @@
 ## D-010— `channel=mail` 時の SaaS 接続
 
 * `SaasOptions::sanitizeFromPost` は `channel=mail` なら POST 無視。
-* UI: 保存済み mail 時は SaaS 製品ラジオ等を初期 `disabled`。画面上で `saas` に切替えた場合は **保存前** から `serviceTabScript()` が製品・接続欄を有効化 ([admin_ui_spec.md](./admin_ui_spec.md))。
+* UI: 保存済み mail 時は SaaS 製品ラジオ等を初期 `disabled`。画面上で `saas` に切り替た場合は **保存前** から `serviceTabScript()` が製品・接続欄を有効化 ([admin_ui_spec.md](./admin_ui_spec.md))。
 * **接続検証** POST も保存しない (option 更新なし)。
 
 ## D-011— SaaS 製品 ID と Service `kind`
@@ -61,7 +64,7 @@
 
 * `build_dispatch_material` の戻りが MailMaterial → 既存 `wp_mail` 経路。
 * HttpRequestMaterial → `wp_remote_request` + SaasExecutionOutcome → `map_dispatch_result( $kind, … )`。
-* 添付・ From / Reply-To は **Mail 経路のみ**。
+* 添付 / From / Reply-To は **Mail 経路のみ** (From の付け方は D-015)。
 
 ## D-005— 自動返信のみ失敗
 
@@ -75,11 +78,31 @@
 * Integration テストで固定した semver を **README** と **本 spec §前提** に同じ値で書く。
 * 添付取得 API は、その semver の SMF ソースを正本に [status.md](./status.md) チェックリストにクラス名を記録する。
 
+## D-013— Mail 認証の非実装
+
+* **採用:** 問い合わせ Mail の到達性・認証は、サイト全体の **`wp_mail` + 任意の `Email Auth` (等)** に任せる。
+* **採用しない:** 本プラグイン内の DKIM 鍵管理、SPF レコード生成、DMARC ポリシー編集。
+* Service は Transport を扱わない ([Service transport_boundary_spec.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/transport_boundary_spec.md))。
+
+## D-014— `Email Auth` コンパニオン
+
+* タブ1 `channel=mail` 時に **案内 notice** を表示 (未導入 / 導入済で文言分岐)。実装: `SettingsPage::renderServiceMailAuthNotice()`。
+* Mail チャネルは `Email Auth` **なしでも** 送信可能 (D-009 / D-012維持)。
+* **`Email Auth` を Composer / プラグインヘッダーで require しない。**
+
+## D-015— From / Reply-To (Runner)
+
+* **採用:** `Runner::executeMail` の `$headers` から **`From: …` 行を載せない**。
+* **維持:** `Content-Type: …`、有効なペイロード `email` がある場合、**`Reply-To: …` のみ**。
+* **採用しない:** `Email Auth` 専用 API への依存 (WordPress / PHPMailer フックのみ)。
+* **運用:** `Email Auth` の Reply-To グローバル設定と問い合わせ Reply-To の注意 — [mail_deliverability_spec.md](./mail_deliverability_spec.md) §5。
+
 ## 改訂履歴
 
 | 日付 | 内容 |
 | --- | --- |
 | 2026-10-19 | 初版。レビュー指摘1.1–1.6 / 6.x を固定 |
-| 2026-10-20 | D-007– D-009。管理 UI3タブ + List Table + dispatch channel |
+| 2026-10-20 | D-007– D-009。管理 UI は3タブ + List Table + dispatch channel |
 | 2026-10-20 | D-010。`channel=mail` 時の SaaS 接続 UI / 保存ガード |
 | 2026-10-24 | D-011– D-012。Service v0.3 (Backlog / Asana) に合わせた SaaS 仕様 |
+| 2026-10-27 | D-013– D-015。v0.2Mail 配送・`Email Auth` コンパニオン |

@@ -1,6 +1,6 @@
 # S2J Inquiry Destination - 実装状況
 
-最終更新: 2026-10-25 (Unit **21**、接続検証解決テスト追補)
+最終更新: 2026-10-27 (v0.2の spec 確定、Unit **21**)
 
 索引は [specs.md](./specs.md) です。計算規則の正本は [Inquiry Destination Service](https://github.com/stein2nd/s2j-inquiry-destination-service) の `docs/` です。Pass 記録は [test-results.md](./test-results.md) です。
 
@@ -11,6 +11,7 @@
 * [admin_ui_spec.md](./admin_ui_spec.md) — 設定画面 (タブ1–3)
 * [saas_connection_spec.md](./saas_connection_spec.md) — dispatch / サイト接続
 * [dispatch_execution_spec.md](./dispatch_execution_spec.md) — Runner、Mail / SaaS HTTP
+* [mail_deliverability_spec.md](./mail_deliverability_spec.md) — Mail Transport、`Email Auth` (v0.2)
 * [data_dictionary.md](./data_dictionary.md) — option キー
 * Service: [usage_spec §SaaS](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/interfaces/usage_spec.md)
 
@@ -18,8 +19,8 @@
 
 | 項目 | 状態 |
 | --- | --- |
-| Packagist `s2j/inquiry-destination-service` | **^0.3.0** (`composer.json` / `composer.lock`) |
-| Service **v0.3.0** (Backlog / Asana Core) | 組み込み済 |
+| Packagist `s2j/inquiry-destination-service` | **^0.4.0** (spec · [plugin_spec.md](./plugin_spec.md)。`composer.json` 更新は v0.2残) |
+| Service **v0.4.0** (Transport 境界 + v0.3 SaaS) | spec 確定、lock 更新は v0.2残 |
 | Dispatch Runner → Service 公開4関数 | 実装済み、**Mail + SaaS HTTP** ([includes/Dispatch/Runner.php](../includes/Dispatch/Runner.php)) |
 | Service 同梱 dist zip | `npm run dist` + [dist-zip.yml](../.github/workflows/dist-zip.yml) |
 
@@ -32,7 +33,7 @@
 | 機能名 | 実装済み/未実装 | 実装％ | 完了条件 (100%) |
 | --- | --- | --- | --- |
 | 仕様分割 (`docs/`) | 確定 | — | [§ 仕様分割](#status-spec-docs) |
-| Service ^0.3 組み込み | 実装済み | 100 | [§ Service 組み込み](#status-composer-service) (3/3) |
+| Service 組み込み (^0.3 実装 / ^0.4 spec) | 実装済 (lock は v0.2) | — | [§ Service 組み込み](#status-composer-service) |
 | Options サニタイズ (dispatch / SaaS / types) | 実装済み | 100 | [§ Options](#status-options) (10/10) |
 | 宛先レコード (`DestinationBuilder`) | 実装済み | 100 | [§ DestinationBuilder](#status-destination) (1/1) |
 | Service 連携 smoke (Unit) | 実装済み | 100 | [§ Service 連携](#status-service-integration) (2/2) |
@@ -44,6 +45,19 @@
 | PHPUnit / PHPStan / PHPCS / docs-lint | 実装済み | 100 | [§ 品質ゲート](#status-quality) (6/6) |
 | dist zip CI | 実装済み | 100 | [§ 配布](#status-dist) (2/2) |
 | SaaS 実 API (検証 + 起票) | 未記録 | 0 | [§ HTTPS 環境](#status-https) (0/4) |
+| v0.2 Mail / `Email Auth` | コード実装済 (手動 smoke 未) | — | [§ v0.2](#status-v02) |
+
+## v0.2 (Mail 配送・認証) {#status-v02}
+
+正本: [mail_deliverability_spec.md](./mail_deliverability_spec.md)、[decisions.md](./decisions.md) D-013– D-015。証跡: [archive/impl-v0.2-mail-auth/](./archive/impl-v0.2-mail-auth/)。
+
+| 項目 | 状態 |
+| --- | --- |
+| spec (`docs/`) | **確定** (2026-10-27) |
+| タブ1 `Email Auth` 案内 | **実装済** |
+| Runner D-015 (`From:` 削除) | **実装済** |
+| Composer **^0.4.0** | **実装済** (lock `v0.4.0`) |
+| 手動 smoke (v0.2-1–4) | 未 — [test-results.md §v0.2](./test-results.md) |
 
 ## 100% 完了条件チェックリスト
 
@@ -61,7 +75,7 @@
 
 正本: [plugin_spec.md](./plugin_spec.md)、[saas_connection_spec.md](./saas_connection_spec.md)
 
-* [x] Local: `composer install` — `s2j/inquiry-destination-service` **^0.3.0** が `vendor/` に入る
+* [x] Local: `composer install` — `s2j/inquiry-destination-service` **^0.4.0** が `vendor/` に入る (v0.2)
 * [x] Test: `ServiceGateTest::test_service_package_is_available_when_vendor_installed`
 * [x] Local: `npm run dist` — `vendor/` 同梱 zip が生成される ([dist-zip.yml](../.github/workflows/dist-zip.yml))
 

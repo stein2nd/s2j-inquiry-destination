@@ -2,23 +2,23 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: S2J Inquiry Destination 0.1.0\n"
+"Project-Id-Version: S2J Inquiry Destination 0.1.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/s2j-inquiry-destination\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-25T22:10:37+00:00\n"
+"POT-Creation-Date: 2026-10-27T08:14:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: s2j-inquiry-destination\n"
 
 #. Plugin Name of the plugin
 #: s2j-inquiry-destination.php
-#: includes/Admin/SettingsPage.php:40
-#: includes/Admin/SettingsPage.php:41
-#: includes/Admin/SettingsPage.php:143
+#: includes/Admin/SettingsPage.php:43
+#: includes/Admin/SettingsPage.php:44
+#: includes/Admin/SettingsPage.php:146
 msgid "S2J Inquiry Destination"
 msgstr ""
 
@@ -107,186 +107,209 @@ msgstr ""
 msgid "Bulk inquiry type…"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:75
+#: includes/Admin/SettingsPage.php:78
 #: includes/Admin/TypesListTable.php:45
 msgid "Type (slug)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:76
+#: includes/Admin/SettingsPage.php:79
 #: includes/Admin/TypesListTable.php:46
 msgid "Display name"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:77
+#: includes/Admin/SettingsPage.php:80
 #: includes/Admin/TypesListTable.php:56
 msgid "Mail to (one address per line)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:78
+#: includes/Admin/SettingsPage.php:81
 #: includes/Admin/TypesListTable.php:50
 msgid "Project ID"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:79
+#: includes/Admin/SettingsPage.php:82
 #: includes/Admin/TypesListTable.php:52
 msgid "Issue type ID"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:80
+#: includes/Admin/SettingsPage.php:83
 #: includes/Admin/TypesListTable.php:53
 msgid "Priority ID"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:149
+#: includes/Admin/SettingsPage.php:152
 msgid "Please activate Snow Monkey Forms. Mapped forms will not use this plugin until then."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:169
+#: includes/Admin/SettingsPage.php:172
 msgid "Inquiry management service"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:170
+#: includes/Admin/SettingsPage.php:173
 msgid "Inquiry types and destinations"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:171
+#: includes/Admin/SettingsPage.php:174
 msgid "Snow Monkey Forms mapping"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:174
+#: includes/Admin/SettingsPage.php:177
 msgid "Secondary menu"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:206
 #: includes/Admin/SettingsPage.php:209
+#: includes/Admin/SettingsPage.php:212
 msgid "Dispatch channel"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:207
+#: includes/Admin/SettingsPage.php:210
 msgid "Route inquiries to WordPress mail or to a configured inquiry management SaaS via the inquiry service."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:211
+#: includes/Admin/SettingsPage.php:214
 msgid "Mail (WordPress / wp_mail)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:213
+#: includes/Admin/SettingsPage.php:216
 msgid "Inquiry management SaaS"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:216
-#: includes/Admin/SettingsPage.php:217
+#: includes/Admin/SettingsPage.php:221
+#: includes/Admin/SettingsPage.php:222
 msgid "SaaS product"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:226
+#: includes/Admin/SettingsPage.php:231
 msgid "SaaS connection"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:230
+#: includes/Admin/SettingsPage.php:235
 msgid "Configured on the server (environment or wp-config.php). Settings here will not override it."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:234
+#: includes/Admin/SettingsPage.php:239
 msgid "Select Inquiry management SaaS above to configure connection settings."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:237
+#: includes/Admin/SettingsPage.php:242
 msgid "Secrets are not shown after save."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:255
+#: includes/Admin/SettingsPage.php:260
 msgid "Verify connection"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:258
+#: includes/Admin/SettingsPage.php:263
 msgid "Save service settings"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:271
+#: includes/Admin/SettingsPage.php:276
 msgid "Set a project ID per inquiry type. Backlog also requires issue type and priority IDs."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:273
+#: includes/Admin/SettingsPage.php:278
 msgid "Use one mailing-list or shared inbox address when possible. Multiple addresses receive the same single To line. CC and BCC are not supported."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:277
+#: includes/Admin/SettingsPage.php:282
 msgid "Search inquiry types"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:289
+#: includes/Admin/SettingsPage.php:294
 msgid "Add new inquiry type"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:290
+#: includes/Admin/SettingsPage.php:295
 msgid "Save inquiry types"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:300
+#: includes/Admin/SettingsPage.php:305
 msgid "Add at least one inquiry type before mapping forms."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:314
+#: includes/Admin/SettingsPage.php:319
 msgid "Search forms"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:325
+#: includes/Admin/SettingsPage.php:330
 msgid "Save form mappings"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:347
+#: includes/Admin/SettingsPage.php:352
 msgid "Select Inquiry management SaaS as the dispatch channel before verifying the connection."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:396
+#: includes/Admin/SettingsPage.php:401
 msgid "Service settings saved."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:419
+#: includes/Admin/SettingsPage.php:424
 msgid "Inquiry types saved."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:442
+#: includes/Admin/SettingsPage.php:447
 msgid "Choose an inquiry type for the bulk action."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:455
+#: includes/Admin/SettingsPage.php:460
 msgid "Form mappings saved."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:600
+#: includes/Admin/SettingsPage.php:605
 msgid "Personal access token"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:602
-#: includes/Admin/SettingsPage.php:626
+#: includes/Admin/SettingsPage.php:607
+#: includes/Admin/SettingsPage.php:631
 msgid "Status: configured"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:604
-#: includes/Admin/SettingsPage.php:628
+#: includes/Admin/SettingsPage.php:609
+#: includes/Admin/SettingsPage.php:633
 msgid "Status: not configured"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:609
+#: includes/Admin/SettingsPage.php:614
 msgid "Leave blank to keep the current token."
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:612
+#: includes/Admin/SettingsPage.php:617
 msgid "API base URL (optional)"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:618
+#: includes/Admin/SettingsPage.php:623
 msgid "Backlog space URL"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:624
+#: includes/Admin/SettingsPage.php:629
 msgid "API key"
 msgstr ""
 
-#: includes/Admin/SettingsPage.php:633
+#: includes/Admin/SettingsPage.php:638
 msgid "Leave blank to keep the current key."
+msgstr ""
+
+#. translators: %s: mail authentication plugin name from its plugin header
+#: includes/Admin/SettingsPage.php:656
+#, php-format
+msgid "Settings → %s"
+msgstr ""
+
+#. translators: 1: mail authentication plugin name, 2: settings screen link
+#: includes/Admin/SettingsPage.php:662
+#, php-format
+msgid "%1$s is active. Configure DKIM, SPF, and DMARC in %2$s."
+msgstr ""
+
+#. translators: %s: link to the mail authentication companion on WordPress.org
+#: includes/Admin/SettingsPage.php:676
+#, php-format
+msgid "If you need DKIM, SPF, or DMARC for outgoing mail, consider installing the %s plugin. It applies to all wp_mail delivery, including inquiries from this plugin."
+msgstr ""
+
+#. translators: fallback display name when the mail authentication companion is not installed locally
+#: includes/Admin/SettingsPage.php:714
+msgid "Email Auth"
 msgstr ""
 
 #. translators: %d: number of types without SaaS project
@@ -388,13 +411,13 @@ msgid "S2J Inquiry Destination: s2j/inquiry-destination-service is missing. Run 
 msgstr ""
 
 #. translators: %s: correlation ID (non-PII)
-#: includes/SnowMonkey/MailerHook.php:181
+#: includes/SnowMonkey/MailerHook.php:176
 #, php-format
 msgid "We could not send your inquiry. Please try again later. Reference: %s"
 msgstr ""
 
 #. translators: %s: correlation ID (non-PII)
-#: includes/SnowMonkey/MailerHook.php:190
+#: includes/SnowMonkey/MailerHook.php:185
 #, php-format
 msgid "Your inquiry was received, but we could not send a confirmation email. No resend is needed. Reference: %s"
 msgstr ""

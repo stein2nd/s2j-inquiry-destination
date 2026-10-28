@@ -41,6 +41,10 @@ final class ServiceIntegrationTest extends TestCase
 		Assert::assertSame( array( 'team@example.com' ), $built['material']['to'] );
 		Assert::assertStringContainsString( 'sales', $built['material']['subject'] );
 		Assert::assertSame( 'text/plain', $built['material']['content_type'] );
+		Assert::assertSame(
+			array( 'to', 'subject', 'body', 'content_type' ),
+			array_keys( $built['material'] )
+		);
 	}
 
 	public function test_custom_inquiry_type_slug(): void

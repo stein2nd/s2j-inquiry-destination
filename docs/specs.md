@@ -17,10 +17,13 @@
 統一ペイロードの検証、Mail 材料、結果写像の規則は、本プラグインには置きません。
 
 * 索引: [s2j-inquiry-destination-service / docs/specs.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/specs.md)
+* Transport 境界 (v0.4): [transport_boundary_spec.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/transport_boundary_spec.md)
 * 統合見取り図: [service_spec.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/service_spec.md)
 * 公開 API: [php_api_spec.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/interfaces/php_api_spec.md)
 * 使用方法 (プラグイン向け): [usage_spec.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/interfaces/usage_spec.md)
 * 用語 (`inquiry_type`、`kind`、`correlation_id`): [data_dictionary.md (Service)](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/contracts/data_dictionary.md)
+
+プラグイン `composer.json`: **`s2j/inquiry-destination-service` ^0.4.0** (v0.2 spec)。
 
 ## 読み方ガイド
 
@@ -34,7 +37,8 @@
 6. **[admin_ui_spec.md](./admin_ui_spec.md)** — 設定画面
 7. **[snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md)** — SMF 接続とフィールド写像
 8. **[dispatch_execution_spec.md](./dispatch_execution_spec.md)** — 送信、`wp_mail`、失敗と自動返信
-9. **[logging_spec.md](./logging_spec.md)** — `error_log` と相関 ID
+9. **[mail_deliverability_spec.md](./mail_deliverability_spec.md)** — Mail Transport、`Email Auth` (v0.2)
+10. **[logging_spec.md](./logging_spec.md)** — `error_log` と相関 ID
 
 ### 役割別
 
@@ -45,10 +49,11 @@
 3. [admin_ui_spec.md](./admin_ui_spec.md)
 4. [snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md)
 5. [dispatch_execution_spec.md](./dispatch_execution_spec.md)
-6. [logging_spec.md](./logging_spec.md)
-7. [decisions.md](./decisions.md) — 初版の実装固定
-8. [status.md](./status.md) / [test-results.md](./test-results.md)
-9. [governance/documentation_governance.md](./governance/documentation_governance.md)
+6. [mail_deliverability_spec.md](./mail_deliverability_spec.md)
+7. [logging_spec.md](./logging_spec.md)
+8. [decisions.md](./decisions.md) — 実装固定 (D-001– D-015)
+9. [status.md](./status.md) / [test-results.md](./test-results.md)
+10. [governance/documentation_governance.md](./governance/documentation_governance.md)
 
 #### サービス側の実装者
 
@@ -74,13 +79,14 @@
 | [データ辞書](./data_dictionary.md) | option キー、SMF フック、相関 ID |
 | [管理 UI](./admin_ui_spec.md) | 設定 > S2J Inquiry Destination (3タブ、List Table) |
 | [Snow Monkey Forms 接続](./snow_monkey_forms_spec.md) | フォーム対応、skip、未対応コントロール |
-| [SaaS 接続](./saas_connection_spec.md) | Backlog / Asana、タブ1/2· Runner HTTP (Service ^0.3) |
+| [SaaS 接続](./saas_connection_spec.md) | Backlog / Asana、タブ1/2· Runner HTTP (Service ^0.4) |
 
 ### How (実行)
 
 | ドキュメント | 内容 |
 | --- | --- |
 | [送信実行](./dispatch_execution_spec.md) | Service 呼び出し、`wp_mail`、成功条件、自動返信 |
+| [Mail 配送・認証](./mail_deliverability_spec.md) | Transport、`Email Auth` コンパニオン (v0.2) |
 | [ログ](./logging_spec.md) | PII (個人を識別できる情報) 境界、`error_log` |
 
 ### 運用
@@ -88,10 +94,10 @@
 | ドキュメント | 内容 |
 | --- | --- |
 | [実装状況](./status.md) | 機能単位の進捗 |
-| [テスト戦略と結果](./test-results.md) | 段階1–3 (起草) |
-| [決定事項 (初版)](./decisions.md) | Runner、UI 保存、SMF、自動返信失敗 |
+| [テスト戦略と結果](./test-results.md) | 段階1–3 |
+| [決定事項](./decisions.md) | Runner、UI、SMF、Mail (D-013– D-015) |
 | [ドキュメンテーション・ガバナンス](./governance/documentation_governance.md) | SoT、用語、lint、`docs_mod` 起草 → `docs` 正本 |
-| [archive 索引](./archive/README.md) | 完了イニシアチブ、移行メモ |
+| [archive 索引](./archive/README.md) | 完了イニシアチブ (v0.2 Mail 等) |
 
 ## Source of Truth
 
@@ -99,9 +105,10 @@
 
 | 対象 | 正本 |
 | --- | --- |
-| ペイロード・宛先・ Mail 材料・結果写像 | Inquiry Destination **Service** の `docs/core/` |
+| ペイロード・宛先・ Mail 材料 (4キー)・結果写像 | Inquiry Destination **Service** の `docs/core/` |
+| Mail Transport (DKIM 等) | Service [transport_boundary_spec](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/transport_boundary_spec.md) + 本 [mail_deliverability_spec.md](./mail_deliverability_spec.md) |
 | 公開 PHP API | Service の `docs/interfaces/php_api_spec.md` |
-| option 構造、SMF フック、画面文言、From/Reply-To | 本 `docs/` |
+| option 構造、SMF フック、Runner ヘッダー、画面文言 | 本 `docs/` |
 | ユーザー向け最短手順 | ルート `README.md` |
 
 ## 用語 (プラグイン docs 内)
@@ -113,6 +120,9 @@
 | **宛先レコード** | 1回の送信に渡す `DestinationRecord` ([Service destination_spec](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/destination_spec.md)) |
 | **材料 (material)** | `MailMaterial` または `HttpRequestMaterial` ([Service dispatch_spec](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/dispatch_spec.md)) |
 | **dispatch チャネル** | タブ1 `channel` (`mail` / `saas`)。SaaS 時の製品 ID は `saas_product` → Service `kind` = `saas_{product}` |
+| **Mail チャネル** | `channel=mail`。Runner が `wp_mail` を呼ぶ |
+| **Transport 層** | `wp_mail` 以降 (SMTP、DKIM 等)。Service 非目標 |
+| **`Email Auth`** | 推奨コンパニオン (WordPress.org)。必須依存ではない (D-014) |
 | **SaaS 製品 ID** | `backlog` / `asana` (プラグイン)。Service `kind` は `saas_backlog` / `saas_asana` |
 | **相関 ID** | 1送信試行の `correlation_id`。ログと画面に出す非 PII (個人を識別できる情報) 識別子 |
 

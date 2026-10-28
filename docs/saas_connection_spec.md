@@ -15,7 +15,7 @@
 | **サイト接続** | option `s2j_inquiry_destination_saas` | 製品ごとの秘密、URL | 実行時に `destination.credentials` / `saas_endpoint` に **マージ** (平文は option のみ) |
 | **種別ごと設定** | `TypeRow` (タブ2) | `mail_to` または `saas_project_id` 等 | [Service destination_spec](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/destination_spec.md) |
 
-`channel=mail` のとき `saas_product` は空文字に正規化して保存します (未使用)。
+`channel=mail` の場合、`saas_product` は空文字に正規化して保存します (未使用)。
 
 ## Service v0.3で確定した製品
 

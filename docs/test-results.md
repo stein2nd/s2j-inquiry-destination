@@ -16,14 +16,14 @@
 
 | # | 確認項目 | 期待 | 正本 |
 | --- | --- | --- | --- |
-| 1 | `composer install` | `s2j/inquiry-destination-service` **^0.3.0** が vendor に入る | [plugin_spec.md](./plugin_spec.md) |
+| 1 | `composer install` | `s2j/inquiry-destination-service` **^0.4.0** が vendor に入る (v0.2) | [plugin_spec.md](./plugin_spec.md) |
 | 1b | プラグイン Unit | `composer test` — **21** 件 (`DispatchOptions`, `SaasOptions` + `resolveForConnectionTest`, `SaasProductCatalog` + `choicePhrase`, `SaasConnectionProbe`, 他) | `tests/Unit/`、[status.md §Options](./status.md#status-options) |
 | 2 | 設定画面保存 (タブごと) | 各 POST が **当該 option のみ** 更新 (D-007) | [admin_ui_spec.md](./admin_ui_spec.md) |
 | 2b | タブ1の dispatch / SaaS | `channel=mail` 保存時: dispatch のみ更新、接続 POST は `s2j_inquiry_destination_saas` に反映されない (D-010) | [saas_connection_spec.md](./saas_connection_spec.md) |
 | 2e | タブ1 UI (手動) | `channel=saas` 選択で SaaS 製品ラジオが有効化。接続欄・**接続を検証** 表示。**検証** POST は option 不変 | [admin_ui_spec.md](./admin_ui_spec.md) §タブ1 |
 | 2c | List Table Bulk / Views / 検索 | タブ2・3が [admin_ui_spec.md](./admin_ui_spec.md) D-008に一致 | [decisions.md](./decisions.md) |
 | 2d | タブ3フィールド名列 | ブラウザ幅を狭めても `column-fields` 内の `input.regular-text` がセルからはみ出さない | [admin_ui_spec.md](./admin_ui_spec.md) §タブ3 |
-| 3 | 対応フォーム送信 (MailHog 等) | To = 種別 `mail_to` (複数時同一1通)、Reply-To = 訪問者 | [dispatch_execution_spec.md](./dispatch_execution_spec.md) |
+| 3 | 対応フォーム送信 (MailHog 等) | To = 種別 `mail_to` (複数時同一1通)、Reply-To = 訪問者。**From** は Runner `$headers` に載せない (D-015) | [dispatch_execution_spec.md](./dispatch_execution_spec.md) |
 | 4 | 空宛先種別 | systemerror、相関 ID、完了しない | [dispatch_execution_spec.md](./dispatch_execution_spec.md) |
 | 5 | 未対応フォーム | SMF デフォルト管理者宛 (`skip` false) | [snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md) |
 | 6 | `error_log` 1行 | PII (個人を識別できる情報) なし、`correlation_id` あり | [logging_spec.md](./logging_spec.md) |
@@ -41,11 +41,23 @@
 | Lint Docs | push `512a3aa` | Pass | [40136890383](https://github.com/stein2nd/s2j-inquiry-destination/actions/runs/40136890383) |
 | Build distribution zip | `workflow_dispatch` (main) | Pass · artifact `s2j-inquiry-destination-dist-zip` | [40137154220](https://github.com/stein2nd/s2j-inquiry-destination/actions/runs/40137154220) |
 
+## v0.2 Mail / `Email Auth` {#test-v02}
+
+正本: [mail_deliverability_spec.md](./mail_deliverability_spec.md) §7.1。
+
+| ID | 種別 | 内容 | 結果 | 日付 |
+| --- | --- | --- | --- | --- |
+| v0.2-1 | 手動 | `Email Auth` 無、Mail チャネル、写像フォーム送信 | 未 | — |
+| v0.2-2 | 手動 | `Email Auth` 有、Mail チャネル、写像フォーム送信 | 未 | — |
+| v0.2-3 | 手動 | パスワードリセット (D-005 回帰) | 未 | — |
+| v0.2-4 | 手動 | `channel=saas` — タブ1案内非表示 | 未 | — |
+
 ## 記録
 
 | 日付 | 環境 | 結果 | メモ |
 | --- | --- | --- | --- |
 | 2026-10-25 | GitHub Actions (`main`) | Pass | 上表 — SaaS 実装コミット `512a3aa` 後。dist はタグ push ではなく手動 dispatch |
+| 2026-10-27 | docs | Pass | v0.2の spec を `docs/` にマージ ([archive/impl-v0.2-mail-auth/](./archive/impl-v0.2-mail-auth/)) |
 
 ## 関連
 

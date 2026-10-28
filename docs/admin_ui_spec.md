@@ -84,6 +84,15 @@ React は必須にしません。WordPress 管理画面の **タブ** + **`WP_Li
 | UI (クライアント) | 画面上で `saas` を選べば JS が製品・接続欄を有効化 (保存前の入力・検証可) |
 | 保存 | `SaasOptions::sanitizeFromPost( $post, $channel )` は `channel=mail` なら POST を無視 |
 
+### `channel=mail` 時のメール認証案内
+
+| 項目 | 規則 |
+| --- | --- |
+| 表示 | dispatch チャネルが **mail** の場合のみ (初期表示 + `serviceTabScript()` で `saas` 選択時は非表示) |
+| 体裁 | `notice notice-info inline` (タブ1・チャネル fieldset 直後) |
+| 未導入 | DKIM/SPF/DMARC が必要なら **Email Auth** (WordPress.org) の導入を検討する旨。`wp_mail` 全体 (本プラグインの問い合わせ含む) に効くこと |
+| 導入済 | **設定 → Email Auth** へのリンク。本プラグインは Email Auth を必須依存にしない |
+
 ### `channel=saas` 時
 
 | `saas_product` | 接続欄 (サイト1組) |
@@ -112,9 +121,9 @@ UI ラベル例: **Verify connection** (i18n → 接続を検証)。
 | 配置 | secondary **[接続を検証]** を primary **[サービス設定の保存]** の **直前** |
 | POST | `s2j_inquiry_destination_test_saas_connection`。nonce は保存と同じ `s2j_inquiry_destination_service` |
 | 保存 | **行わない** (`handleServiceConnectionTest` のみ) |
-| 入力の解決 | `SaasOptions::resolveForConnectionTest()` — POST の秘密・URL、空 secret は option、サーバー設定時は env/定数 |
-| 製品未選択等 | 文言の製品名リストは `SaasProductCatalog::choicePhrase()` (ハードコードしない) |
-| HTTP | `SaasConnectionProbe::test()` → `wp_remote_get`、タイムアウト 15s |
+| 入力の解決 | `SaasOptions::resolveForConnectionTest()` — POST の秘密、URL、空 secret は option、サーバー設定時は env/定数 |
+| 製品の未選択等 | 文言の製品名リストは `SaasProductCatalog::choicePhrase()` (ハードコードしない) |
+| HTTP | `SaasConnectionProbe::test()` → `wp_remote_get`、タイムアウト15s |
 | Backlog | `GET {endpoint}/api/v2/users/myself?apiKey=…` |
 | Asana | `GET {endpoint or https://app.asana.com}/api/1.0/users/me` + `Authorization: Bearer` |
 | 成功 | HTTP **200** のみ。`settings_errors` success |

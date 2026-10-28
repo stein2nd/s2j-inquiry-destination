@@ -81,7 +81,6 @@ final class Runner
 
         $headers = array(
             'Content-Type: ' . $content_type . '; charset=UTF-8',
-            'From: ' . get_option('admin_email'),
         );
 
         $reply_email = (string) ( $validated['payload']['email'] ?? '' );
