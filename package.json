@@ -1,6 +1,6 @@
 {
     "name": "s2j-inquiry-destination",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Route SMF admin mail by inquiry type — mail or SaaS",
     "type": "module",
     "author": "Koutarou ISHIKAWA",
@@ -59,13 +59,13 @@
         "react-dom": "^19.3.1"
     },
     "overrides": {
-        "rollup": "^4.65.1"
+        "rollup": "^4.66.0"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
-        "@s2j/docs-linter": "^1.0.30",
+        "@s2j/docs-linter": "^1.0.31",
         "@types/jquery": "^4.0.1",
-        "@types/node": "^26.6.5",
+        "@types/node": "^26.6.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "@typescript-eslint/eslint-plugin": "^8.72.1",
@@ -83,8 +83,8 @@
         "eslint": "^10.13.0",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
-        "rollup": "^4.65.1",
-        "sass": "^1.106.1",
+        "rollup": "^4.66.0",
+        "sass": "^1.107.0",
         "stylelint": "^17.16.0",
         "stylelint-config-standard-scss": "^17.0.0",
         "typescript": "npm:@typescript/typescript6@^6.0.2",

@@ -2,6 +2,17 @@
 
 ## unreleased
 
+## 0.2.1 - 2026-10-30
+
+### Changed
+
+* docs: [status.md](./docs/status.md) — 100% チェックリストを **非 HTTPS / HTTPS**、各 **自動 → 手動** に再構成。v0.2 実装済み項目を反映
+
+### Tests
+
+* `RunnerMailHeadersTest` — D-015 (`From:` 非載せ、Reply-To / 無効メール時スキップ)。Unit **23** 件
+* `tests/stubs/wordpress.php` — `wp_mail` 等スタブを追加
+
 ## 0.2.0 - 2026-10-27
 
 ### Added

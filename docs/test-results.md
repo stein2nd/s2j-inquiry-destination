@@ -17,7 +17,7 @@
 | # | 確認項目 | 期待 | 正本 |
 | --- | --- | --- | --- |
 | 1 | `composer install` | `s2j/inquiry-destination-service` **^0.4.0** が vendor に入る (v0.2) | [plugin_spec.md](./plugin_spec.md) |
-| 1b | プラグイン Unit | `composer test` — **21** 件 (`DispatchOptions`, `SaasOptions` + `resolveForConnectionTest`, `SaasProductCatalog` + `choicePhrase`, `SaasConnectionProbe`, 他) | `tests/Unit/`、[status.md §Options](./status.md#status-options) |
+| 1b | プラグイン Unit | `composer test` — **23** 件 (`RunnerMailHeadersTest` D-015、`ServiceIntegrationTest` v0.4 4キー、他) | `tests/Unit/`、[status.md §非 HTTPS · 自動](./status.md#status-local-automated) |
 | 2 | 設定画面保存 (タブごと) | 各 POST が **当該 option のみ** 更新 (D-007) | [admin_ui_spec.md](./admin_ui_spec.md) |
 | 2b | タブ1の dispatch / SaaS | `channel=mail` 保存時: dispatch のみ更新、接続 POST は `s2j_inquiry_destination_saas` に反映されない (D-010) | [saas_connection_spec.md](./saas_connection_spec.md) |
 | 2e | タブ1 UI (手動) | `channel=saas` 選択で SaaS 製品ラジオが有効化。接続欄・**接続を検証** 表示。**検証** POST は option 不変 | [admin_ui_spec.md](./admin_ui_spec.md) §タブ1 |

@@ -93,6 +93,42 @@ if ( ! function_exists( 'wp_remote_get' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_mail' ) ) {
+	/**
+	 * @param list<string>|string $to
+	 * @param list<string>|string $headers
+	 * @param list<string>        $attachments
+	 */
+	function wp_mail( $to, string $subject, string $message, $headers = '', array $attachments = array() ): bool {
+		$GLOBALS['s2j_test_wp_mail_last'] = array(
+			'to'          => $to,
+			'subject'     => $subject,
+			'message'     => $message,
+			'headers'     => $headers,
+			'attachments' => $attachments,
+		);
+
+		return true;
+	}
+}
+
+if ( ! function_exists( 'wp_json_encode' ) ) {
+	/**
+	 * @param mixed $data
+	 */
+	function wp_json_encode( $data, int $options = 0, int $depth = 512 ): string|false {
+		return json_encode( $data, $options, $depth );
+	}
+}
+
+if ( ! function_exists( 'error_log' ) ) {
+	function error_log( string $message, int $message_type = 0, ?string $destination = null ): bool {
+		unset( $message, $message_type, $destination );
+
+		return true;
+	}
+}
+
 if ( ! function_exists( 'wp_remote_retrieve_response_code' ) ) {
 	/**
 	 * @param array<string, mixed>|WP_Error $response

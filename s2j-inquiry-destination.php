@@ -9,7 +9,7 @@
  * Plugin Name: S2J Inquiry Destination
  * Plugin URI: https://github.com/stein2nd/s2j-inquiry-destination
  * Description: Route Snow Monkey Forms administrator mail through inquiry-type destinations (mail or inquiry-management SaaS).
- * Version: 0.2.0
+ * Version: 0.2.1
  * Author: Koutarou ISHIKAWA
  * Author URI: https://stein2nd.wordpress.com
  * License: GPL v3 or later
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'S2J_INQUIRY_DESTINATION_VERSION', '0.2.0' );
+define( 'S2J_INQUIRY_DESTINATION_VERSION', '0.2.1' );
 define( 'S2J_INQUIRY_DESTINATION_PLUGIN_FILE', __FILE__ );
 define( 'S2J_INQUIRY_DESTINATION_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'S2J_INQUIRY_DESTINATION_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
