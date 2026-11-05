@@ -7,17 +7,17 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-27T08:14:41+00:00\n"
-"PO-Revision-Date: 2026-10-27 17:19+0900\n"
+"POT-Creation-Date: 2026-11-01T06:31:25+00:00\n"
+"PO-Revision-Date: 2026-11-01 15:34+0900\n"
 "Language: ja\n"
 "X-Generator: Poedit 3.10\n"
 "X-Domain: s2j-inquiry-destination\n"
 
 #. Plugin Name of the plugin
 #: s2j-inquiry-destination.php
-#: includes/Admin/SettingsPage.php:43
-#: includes/Admin/SettingsPage.php:44
-#: includes/Admin/SettingsPage.php:146
+#: includes/Admin/SettingsPage.php:50
+#: includes/Admin/SettingsPage.php:51
+#: includes/Admin/SettingsPage.php:175
 msgid "S2J Inquiry Destination"
 msgstr "S2J Inquiry Destination"
 
@@ -106,208 +106,232 @@ msgstr "問い合わせタイプの一括処理"
 msgid "Bulk inquiry type…"
 msgstr "問い合わせタイプを一括で…"
 
-#: includes/Admin/SettingsPage.php:78
+#: includes/Admin/SettingsPage.php:79
+msgid "Loading tab. Please wait…"
+msgstr "タブを読み込んでいます。操作はそのままお待ちください…"
+
+#: includes/Admin/SettingsPage.php:83
+msgid "Saving settings. Please wait…"
+msgstr "設定を保存しています。操作はそのままお待ちください…"
+
+#: includes/Admin/SettingsPage.php:103
 #: includes/Admin/TypesListTable.php:45
 msgid "Type (slug)"
 msgstr "タイプ (スラッグ)"
 
-#: includes/Admin/SettingsPage.php:79
+#: includes/Admin/SettingsPage.php:104
 #: includes/Admin/TypesListTable.php:46
 msgid "Display name"
 msgstr "表示名"
 
-#: includes/Admin/SettingsPage.php:80
+#: includes/Admin/SettingsPage.php:105
 #: includes/Admin/TypesListTable.php:56
 msgid "Mail to (one address per line)"
 msgstr "メールアドレス (1行につき1つのアドレス)"
 
-#: includes/Admin/SettingsPage.php:81
+#: includes/Admin/SettingsPage.php:106
 #: includes/Admin/TypesListTable.php:50
 msgid "Project ID"
 msgstr "プロジェクト ID"
 
-#: includes/Admin/SettingsPage.php:82
+#: includes/Admin/SettingsPage.php:107
 #: includes/Admin/TypesListTable.php:52
 msgid "Issue type ID"
 msgstr "課題タイプ ID"
 
-#: includes/Admin/SettingsPage.php:83
+#: includes/Admin/SettingsPage.php:108
 #: includes/Admin/TypesListTable.php:53
 msgid "Priority ID"
 msgstr "優先度 ID"
 
-#: includes/Admin/SettingsPage.php:152
+#: includes/Admin/SettingsPage.php:109
+msgid "Delete the selected inquiry types? Form mappings that use them will block deletion."
+msgstr "選択した問い合わせタイプを削除しますか ? それらを使用しているフォームマッピングがある場合、削除はブロックされます。"
+
+#: includes/Admin/SettingsPage.php:181
 msgid "Please activate Snow Monkey Forms. Mapped forms will not use this plugin until then."
 msgstr "Snow Monkey Forms を有効にしてください。それまでは、マッピング済みフォームは、このプラグインを使用しません。"
 
-#: includes/Admin/SettingsPage.php:172
+#: includes/Admin/SettingsPage.php:201
 msgid "Inquiry management service"
 msgstr "問い合わせ管理サービス"
 
-#: includes/Admin/SettingsPage.php:173
+#: includes/Admin/SettingsPage.php:202
 msgid "Inquiry types and destinations"
 msgstr "問い合わせタイプと送信先"
 
-#: includes/Admin/SettingsPage.php:174
+#: includes/Admin/SettingsPage.php:203
 msgid "Snow Monkey Forms mapping"
 msgstr "Snow Monkey Forms のマッピング"
 
-#: includes/Admin/SettingsPage.php:177
+#: includes/Admin/SettingsPage.php:206
 msgid "Secondary menu"
 msgstr "サブメニュー"
 
-#: includes/Admin/SettingsPage.php:209
-#: includes/Admin/SettingsPage.php:212
+#: includes/Admin/SettingsPage.php:240
+#: includes/Admin/SettingsPage.php:243
 msgid "Dispatch channel"
 msgstr "送信チャネル"
 
-#: includes/Admin/SettingsPage.php:210
+#: includes/Admin/SettingsPage.php:241
 msgid "Route inquiries to WordPress mail or to a configured inquiry management SaaS via the inquiry service."
 msgstr "Inquiry Service を介して、問い合わせを WordPress のメール機能または設定済みの問い合わせ管理 SaaS に転送します。"
 
-#: includes/Admin/SettingsPage.php:214
+#: includes/Admin/SettingsPage.php:245
 msgid "Mail (WordPress / wp_mail)"
 msgstr "Mail (WordPress / wp_mail)"
 
-#: includes/Admin/SettingsPage.php:216
+#: includes/Admin/SettingsPage.php:247
 msgid "Inquiry management SaaS"
 msgstr "問い合わせ管理 SaaS"
 
-#: includes/Admin/SettingsPage.php:221
-#: includes/Admin/SettingsPage.php:222
+#: includes/Admin/SettingsPage.php:252
+#: includes/Admin/SettingsPage.php:253
 msgid "SaaS product"
 msgstr "SaaS サービス"
 
-#: includes/Admin/SettingsPage.php:231
+#: includes/Admin/SettingsPage.php:262
 msgid "SaaS connection"
 msgstr "SaaS 接続"
 
-#: includes/Admin/SettingsPage.php:235
+#: includes/Admin/SettingsPage.php:266
 msgid "Configured on the server (environment or wp-config.php). Settings here will not override it."
 msgstr "サーバー側 (環境設定または wp-config.php) で設定されています。ここでの設定は、サーバー側の設定を上書きすることはありません。"
 
-#: includes/Admin/SettingsPage.php:239
+#: includes/Admin/SettingsPage.php:270
 msgid "Select Inquiry management SaaS above to configure connection settings."
 msgstr "上の問い合わせ管理 SaaS を選択して、接続を設定してください。"
 
-#: includes/Admin/SettingsPage.php:242
+#: includes/Admin/SettingsPage.php:273
 msgid "Secrets are not shown after save."
 msgstr "セーブ後は、秘密鍵は表示されません。"
 
-#: includes/Admin/SettingsPage.php:260
+#: includes/Admin/SettingsPage.php:292
 msgid "Verify connection"
 msgstr "接続の検証"
 
-#: includes/Admin/SettingsPage.php:263
+#: includes/Admin/SettingsPage.php:297
 msgid "Save service settings"
 msgstr "サービス設定の保存"
 
-#: includes/Admin/SettingsPage.php:276
+#: includes/Admin/SettingsPage.php:310
 msgid "Set a project ID per inquiry type. Backlog also requires issue type and priority IDs."
 msgstr "問い合わせタイプごとに、プロジェクト ID を設定してください。Backlog では、課題タイプと優先度 ID も必要です。"
 
-#: includes/Admin/SettingsPage.php:278
+#: includes/Admin/SettingsPage.php:312
 msgid "Use one mailing-list or shared inbox address when possible. Multiple addresses receive the same single To line. CC and BCC are not supported."
 msgstr "可能であれば、1つのメーリングリストまたは共有受信箱のアドレスを使用しましょう。複数のアドレスが、同じ1つの To 行を受け取ります。"
 
-#: includes/Admin/SettingsPage.php:282
+#: includes/Admin/SettingsPage.php:316
 msgid "Search inquiry types"
 msgstr "問い合わせタイプの検索"
 
-#: includes/Admin/SettingsPage.php:294
+#: includes/Admin/SettingsPage.php:337
 msgid "Add new inquiry type"
 msgstr "問い合わせタイプの追加"
 
-#: includes/Admin/SettingsPage.php:295
+#: includes/Admin/SettingsPage.php:338
 msgid "Save inquiry types"
 msgstr "問い合わせタイプの保存"
 
-#: includes/Admin/SettingsPage.php:305
+#: includes/Admin/SettingsPage.php:348
 msgid "Add at least one inquiry type before mapping forms."
 msgstr "フォームのマッピングを行う前に、問い合わせタイプを少なくとも1つ追加してください。"
 
-#: includes/Admin/SettingsPage.php:319
+#: includes/Admin/SettingsPage.php:362
 msgid "Search forms"
 msgstr "フォームの検索"
 
-#: includes/Admin/SettingsPage.php:330
+#: includes/Admin/SettingsPage.php:373
 msgid "Save form mappings"
 msgstr "フォーム・マッピングの保存"
 
-#: includes/Admin/SettingsPage.php:352
+#: includes/Admin/SettingsPage.php:465
 msgid "Select Inquiry management SaaS as the dispatch channel before verifying the connection."
 msgstr "接続を確認する前に、配信チャネルとして、問い合わせ管理 SaaS を選択してください。"
 
-#: includes/Admin/SettingsPage.php:401
+#: includes/Admin/SettingsPage.php:514
 msgid "Service settings saved."
 msgstr "サービス設定が保存されました。"
 
-#: includes/Admin/SettingsPage.php:424
+#: includes/Admin/SettingsPage.php:542
+msgid "Inquiry types deleted."
+msgstr "問い合わせタイプを削除しました。"
+
+#: includes/Admin/SettingsPage.php:544
 msgid "Inquiry types saved."
 msgstr "問合せタイプが保存されました。"
 
-#: includes/Admin/SettingsPage.php:447
+#: includes/Admin/SettingsPage.php:572
 msgid "Choose an inquiry type for the bulk action."
 msgstr "一括処理を行うため、問い合わせタイプを選択してください。"
 
-#: includes/Admin/SettingsPage.php:460
+#: includes/Admin/SettingsPage.php:585
 msgid "Form mappings saved."
 msgstr "フォーム・マッピングが保存されました。"
 
-#: includes/Admin/SettingsPage.php:605
+#: includes/Admin/SettingsPage.php:790
 msgid "Personal access token"
 msgstr "パーソナル・アクセストークン"
 
-#: includes/Admin/SettingsPage.php:607
-#: includes/Admin/SettingsPage.php:631
+#: includes/Admin/SettingsPage.php:792
+#: includes/Admin/SettingsPage.php:820
 msgid "Status: configured"
 msgstr "ステータス: 設定済み"
 
-#: includes/Admin/SettingsPage.php:609
-#: includes/Admin/SettingsPage.php:633
+#: includes/Admin/SettingsPage.php:794
+#: includes/Admin/SettingsPage.php:822
 msgid "Status: not configured"
 msgstr "ステータス: 未設定"
 
-#: includes/Admin/SettingsPage.php:614
+#: includes/Admin/SettingsPage.php:801
 msgid "Leave blank to keep the current token."
 msgstr "現在のトークンを維持する場合は、空欄のままにしてください。"
 
-#: includes/Admin/SettingsPage.php:617
+#: includes/Admin/SettingsPage.php:802
+msgid "Enter a token to verify the connection or save settings."
+msgstr "接続を確認したり、設定を保存したりするには、トークンを入力してください。"
+
+#: includes/Admin/SettingsPage.php:806
 msgid "API base URL (optional)"
 msgstr "API のベース URL (任意)"
 
-#: includes/Admin/SettingsPage.php:623
+#: includes/Admin/SettingsPage.php:812
 msgid "Backlog space URL"
 msgstr "Backlog のスペース URL"
 
-#: includes/Admin/SettingsPage.php:629
+#: includes/Admin/SettingsPage.php:818
 msgid "API key"
 msgstr "API キー"
 
-#: includes/Admin/SettingsPage.php:638
+#: includes/Admin/SettingsPage.php:829
 msgid "Leave blank to keep the current key."
 msgstr "現在のキーを維持する場合は、空欄のままにしてください。"
 
+#: includes/Admin/SettingsPage.php:830
+msgid "Enter an API key to verify the connection or save settings."
+msgstr "接続を確認したり、設定を保存したりするには、API キーを入力してください。"
+
 #. translators: %s: mail authentication plugin name from its plugin header
-#: includes/Admin/SettingsPage.php:656
+#: includes/Admin/SettingsPage.php:849
 #, php-format
 msgid "Settings → %s"
 msgstr "設定 → %s"
 
 #. translators: 1: mail authentication plugin name, 2: settings screen link
-#: includes/Admin/SettingsPage.php:662
+#: includes/Admin/SettingsPage.php:855
 #, php-format
 msgid "%1$s is active. Configure DKIM, SPF, and DMARC in %2$s."
 msgstr "%1$s がアクティブです。%2$s で DKIM、SPF、および DMARC を設定してください。"
 
 #. translators: %s: link to the mail authentication companion on WordPress.org
-#: includes/Admin/SettingsPage.php:676
+#: includes/Admin/SettingsPage.php:869
 #, php-format
 msgid "If you need DKIM, SPF, or DMARC for outgoing mail, consider installing the %s plugin. It applies to all wp_mail delivery, including inquiries from this plugin."
 msgstr "送信メールに DKIM、SPF、または DMARC が必要な場合は、%s プラグインの導入をご検討ください。このプラグインは、本プラグインからの問い合わせを含め、wp_mail によるすべての配信に適用されます。"
 
 #. translators: fallback display name when the mail authentication companion is not installed locally
-#: includes/Admin/SettingsPage.php:714
+#: includes/Admin/SettingsPage.php:907
 msgid "Email Auth"
 msgstr "Email Auth"
 

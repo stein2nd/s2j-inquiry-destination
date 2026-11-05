@@ -2,7 +2,7 @@
 
 ## 設計意図
 
-問い合わせの **起票先** を、サイト全体で **メール** または **問い合わせ管理 SaaS (Backlog / Asana)** のいずれか1系統に固定します。HTTP の規則・材料・結果写像は [Inquiry Destination Service ^0.3](https://github.com/stein2nd/s2j-inquiry-destination-service) が正本です。本プラグインは **接続設定の保存**、**宛先レコード組立**、**`wp_remote_request` 実行** を担います。
+問い合わせの **起票先** を、サイト全体で **メール** または **問い合わせ管理 SaaS (Backlog / Asana)** のいずれか1系統に固定します。HTTP の規則・材料・結果マッピングは [Inquiry Destination Service ^0.3](https://github.com/stein2nd/s2j-inquiry-destination-service) が正本です。本プラグインは **接続設定の保存**、**宛先レコード組立**、**`wp_remote_request` 実行** を担います。
 
 空 stub の REST 送信は置きません ([Service dispatch_spec](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/dispatch_spec.md))。
 
@@ -26,7 +26,7 @@
 
 ## 実装段階 (コード vs 仕様)
 
-| 段階 | Service | プラグイン Runner | タブ1 UI | 正本 |
+| 段階 | Service | プラグイン Runner | タブ1の UI | 正本 |
 | --- | --- | --- | --- | --- |
 | **0.0.x (SaaS 実装済)** | **^0.3.0** | Mail **または** HTTP ([dispatch_execution_spec.md](./dispatch_execution_spec.md)) | `channel` / `saas_product` 保存、製品別接続、**接続検証**、チャネル切替 JS | [status.md](./status.md)、本 doc、[admin_ui_spec.md](./admin_ui_spec.md) |
 
@@ -93,16 +93,16 @@ Backlog の **課題種別 ID / 優先度 ID** はサイト共通にせず、**�
 
 ### 接続検証 (管理画面、保存しない)
 
-運営者が秘密・URL を保存する前に疎通を確認する。**Runner 起票** とは別経路 (認証用 GET のみ)。
+運営者が秘密、URL を保存する前に疎通を確認する。**Runner 起票** とは別経路 (認証用 GET のみ)。
 
 | 項目 | 実装 |
 | --- | --- |
 | クラス | [SaasConnectionProbe.php](../includes/Support/SaasConnectionProbe.php) |
-| 入力解決 | [SaasOptions::resolveForConnectionTest()](../includes/Options/SaasOptions.php) |
+| 入力解決 | [SaasOptions::resolveForConnectionTest()](../includes/Options/SaasOptions.php) — POST 秘密が空なら option (またはサーバー) にフォールバック。**どこにも秘密がない** 場合は検証エラー (UI「空欄で維持」は **設定済み** 時のみ。未設定時は入力必須) |
 | 製品名 (エラー文) | [SaasProductCatalog::choicePhrase()](../includes/Support/SaasProductCatalog.php) |
-| Backlog | `GET /api/v2/users/myself` + クエリ `apiKey` |
+| Backlog | `GET /api/v2/users/myself` + クエリー `apiKey` |
 | Asana | `GET /api/1.0/users/me` + Bearer PAT。`endpoint` 空は `https://app.asana.com` |
-| 成功条件 | HTTP 200。それ以外は HTTP コードまたは到達不可メッセージ (レスポンス body は記録しない) |
+| 成功条件 | HTTP `200`。それ以外は HTTP コードまたは到達不可メッセージ (レスポンス body は記録しない) |
 
 ## 種別ごと (タブ2)
 

@@ -11,7 +11,7 @@
 * WordPress DB に問い合わせ案件を溜めない (送信先に直接渡す)。
 * 営業 / 採用など **種別ごと** に宛先を分ける。
 * 同じ統一ペイロードから **Backlog / Asana** 等に HTTP 起票 ([saas_connection_spec.md](./saas_connection_spec.md))。
-* **Mail チャネル:** 到達性・認証 (DKIM/SPF/DMARC) は **`Email Auth` 等の Transport** に任せ、本プラグインは写像、`wp_mail` 実行まで ([mail_deliverability_spec.md](./mail_deliverability_spec.md))。
+* **Mail チャネル:** 到達性・認証 (DKIM/SPF/DMARC) は **`Email Auth` 等の Transport** に任せ、本プラグインはマッピング、`wp_mail` 実行まで ([mail_deliverability_spec.md](./mail_deliverability_spec.md))。
 
 ## 非目的 (初版 + v0.2)
 
@@ -25,7 +25,7 @@
 | 責務 | 参照 |
 | --- | --- |
 | 設定画面 (dispatch チャネル、種別・宛先、フォーム対応) | [admin_ui_spec.md](./admin_ui_spec.md) |
-| SMF フックとフィールド写像 | [snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md) |
+| SMF フックとフィールドマッピング | [snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md) |
 | Service 呼び出しと `wp_mail` / HTTP | [dispatch_execution_spec.md](./dispatch_execution_spec.md) |
 | Mail Transport 案内 (`Email Auth`) | [mail_deliverability_spec.md](./mail_deliverability_spec.md) |
 | 相関 ID と `error_log` | [logging_spec.md](./logging_spec.md) |

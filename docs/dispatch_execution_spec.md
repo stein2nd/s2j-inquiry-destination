@@ -31,7 +31,7 @@ flowchart TD
 | --- | --- | --- |
 | 正規化・検証・材料 | Service | 不足コードは [validation_spec (Service)](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/validation_spec.md) のみ正本 |
 | 実行 | 本プラグイン | Mail: Reply-To / 添付 (From は D-015)。SaaS: timeout、decode のみ (秘密は材料にのみ) |
-| 結果写像 | Service | `context['correlation_id']` を渡す |
+| 結果マッピング | Service | `context['correlation_id']` を渡す |
 
 ## 宛先レコードの組立 (プラグイン)
 

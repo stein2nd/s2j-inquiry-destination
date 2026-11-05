@@ -6,7 +6,7 @@ MW WP Form の保守停止を受け、Snow Monkey Forms に移行する一方、
 
 ## ユースケース
 
-1. 運営者が **設定 > S2J Inquiry Destination** で dispatch チャネル (mail / SaaS)、種別と宛先、SMF 写像を設定する ([admin_ui_spec.md](./admin_ui_spec.md))。
+1. 運営者が **設定 > S2J Inquiry Destination** で dispatch チャネル (mail / SaaS)、種別と宛先、SMF マッピングを設定する ([admin_ui_spec.md](./admin_ui_spec.md))。
 2. 各 SMF フォームを種別に対応付け、コントロール name を氏名・メール等にマップする。
 3. 訪問者がフォーム送信 → 本プラグインが Service + **Mail または HTTP** で届ける → 成功後 SMF が自動返信 (設定時)。
 4. 失敗時は、完了画面に進まず、SMF が responser 値で入力欄を復元する ([dispatch_execution_spec.md](./dispatch_execution_spec.md))。

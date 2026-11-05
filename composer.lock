@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "s2j/inquiry-destination-service",
-            "version": "v0.4.1",
+            "version": "v0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stein2nd/s2j-inquiry-destination-service.git",
-                "reference": "a4f309cbc8db576c1fb46eb5017b01939df0ccb2"
+                "reference": "b2a62c3f9588874afcac4268ca0c76f669e1a6b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stein2nd/s2j-inquiry-destination-service/zipball/a4f309cbc8db576c1fb46eb5017b01939df0ccb2",
-                "reference": "a4f309cbc8db576c1fb46eb5017b01939df0ccb2",
+                "url": "https://api.github.com/repos/stein2nd/s2j-inquiry-destination-service/zipball/b2a62c3f9588874afcac4268ca0c76f669e1a6b4",
+                "reference": "b2a62c3f9588874afcac4268ca0c76f669e1a6b4",
                 "shasum": ""
             },
             "require": {
@@ -53,8 +53,8 @@
                 "issues": "https://github.com/stein2nd/s2j-inquiry-destination-service/issues",
                 "source": "https://github.com/stein2nd/s2j-inquiry-destination-service"
             },
-            "time": "2026-10-29T09:59:04+00:00",
-            "published-time": "2026-10-29T09:59:09+00:00"
+            "time": "2026-11-05T09:22:35+00:00",
+            "published-time": "2026-11-05T09:22:41+00:00"
         }
     ],
     "packages-dev": [
@@ -697,11 +697,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.3.4",
+            "version": "2.3.5",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f20ce6f3c82556cfcfc086b152445a12d1d64fff",
-                "reference": "f20ce6f3c82556cfcfc086b152445a12d1d64fff",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/645a1bd6bead15fc1b8474137467961d0fa30a79",
+                "reference": "645a1bd6bead15fc1b8474137467961d0fa30a79",
                 "shasum": ""
             },
             "require": {
@@ -757,8 +757,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-28T22:38:53+00:00",
-            "published-time": "2026-10-28T22:39:06+00:00"
+            "time": "2026-11-03T12:14:22+00:00",
+            "published-time": "2026-11-03T12:14:36+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",

@@ -31,6 +31,13 @@ final class InquiryLogger
             $extra
         );
 
-        error_log(wp_json_encode($record, JSON_UNESCAPED_UNICODE));
+        $line = wp_json_encode($record, JSON_UNESCAPED_UNICODE);
+        if (! is_string($line)) {
+            return;
+        }
+
+        if (! error_log($line)) {
+            return;
+        }
     }
 }

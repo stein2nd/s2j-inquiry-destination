@@ -2,11 +2,48 @@
 
 ## unreleased
 
+## 0.2.2 - 2026-11-05
+
+### Tests
+
+* `FormOptionsTest` — 存在しない `inquiry_type` の POST を拒否 (タブ3手動 N/A の代替、`test-results.md` #10)
+
+### Changed
+
+* 管理 UI (全タブ): POST 送信時にコア `.spinner` + submit 無効化。アクティブ **タブリップ** 内スピナー + ステータス行 (`tabSubmitMessage`、`adminSubmitBusyScript`、`settings-busy.css`)
+* 管理 UI (タブ1–3): 保存・タブ1 **接続検証** を `s2j-inquiry-destination-submit-with-spinner` で統一
+* 管理 UI: タブ (`nav-tab`) 切替 GET 時にタブリップ上スピナー + 読み込み中ステータス行
+* i18n: `tabSubmitMessage` / `tabLoadingMessage` (`s2jInquiryDestinationAdmin`)
+* docs: v0.2.1以降の管理 UI 修正 (form `action`、nonce D-016、通知の二重表示を回避、タブ3 `required` 廃止・狭幅 CSS) を [admin_ui_spec.md](./docs/admin_ui_spec.md) / [decisions.md](./docs/decisions.md) / [architecture.md](./docs/architecture.md) に反映
+* docs: タブ2 (SaaS > Backlog) **4段階行レイアウト** (1489/785/558/557px) を仕様確定 — [admin_ui_spec.md](./docs/admin_ui_spec.md) §タブ2、D-008、[types-tab.css](./assets/admin/types-tab.css) ヘッダー
+* docs: タブ2 (SaaS > Asana) **≤782px Z 字** (`--asana` wrap) を仕様、D-008に反映。[test-results.md](./docs/test-results.md) #2h / #2c-sort
+* docs: タブ1 `saas_product` 切替が種別 option をリセットしない旨を [admin_ui_spec.md](./docs/admin_ui_spec.md) §タブ2に明記 (#2i)
+* docs: タブ2の一括削除 (`confirm`、`types_deleted` 通知、`typesTabScript`、POST ルーティング) を [admin_ui_spec.md](./docs/admin_ui_spec.md) / [decisions.md](./docs/decisions.md) D-008 / [architecture.md](./docs/architecture.md) に反映
+* docs: D-017 (POST / タブ GET の wait フィードバック) を [admin_ui_spec.md](./docs/admin_ui_spec.md) §読み込み・送信中 / [decisions.md](./docs/decisions.md) / [architecture.md](./docs/architecture.md) に反映
+* docs: タブ3「不存在 `inquiry_type` 保存」手動テストを N/A (select UI) と明記 — サーバー検証は [FormOptions](../includes/Options/FormOptions.php) に維持
+* docs: [status.md](./docs/status.md) § Mail / v0.2 / SMF / HTTPS 手動項の再現性注記 (2026-11-01照合)
+* docs: Local 手動 Pass 記録 (Mail #3/#6/#9、v0.2-1—4) と Mail 系 [runbook](./docs/status.md#status-mail-local-runbook) — [test-results.md](./docs/test-results.md) §記録
+
+### Fixed
+
+* 管理 UI (D-017): POST busy で **submitter 自体** を即 `disabled` すると submit **name** が POST から落ち保存、Bulk がスキップされる — submitter 以外を即 disable、submitter は次 tick で disable (`setNavTabBusy` でタブリップ表示)
+* 管理 UI (タブ1): SaaS → Mail で **サービス設定の保存** 後も送信チャネル SaaS が再表示される問題 — 上記に加え `#s2j-inquiry-destination-service-save-flag`、保存成功時は option の dispatch を描画、Mail 時 JS で `saas_product` ラジオをクリア
+* 管理 UI (タブ2): 一括 **削除** に `confirm` 意思確認がなく、成功通知が「保存されました」のままだった問題 — 削除専用メッセージに分離
+* 管理 UI (タブ2で SaaS > Asana): ≤782px で表示名・プロジェクト ID が消える問題 — Mail 同型 Z 字 (`--asana` wrap)
+* 管理 UI (タブ2で SaaS > Backlog): 1489 / 785 / 558 / 557px の4段階行レイアウト (6列1行〜 ID 折り返し〜全面縦積み) ([types-tab.css](./assets/admin/types-tab.css)、[admin_ui_spec.md](./docs/admin_ui_spec.md) §タブ2)
+* 管理 UI (タブ1): 秘密欄が **未設定** のとき「空欄で維持」ガイドを出さず、検証・初回保存には入力が必要と明示 ([admin_ui_spec.md](./docs/admin_ui_spec.md) § API キー)
+* 管理 UI (タブ1): 接続検証エラー後に送信チャネルが保存済み Mail のまま表示される問題 — 検証/保存 POST 直後は POST の channel / SaaS 製品を UI に反映
+* 管理 UI (タブ2/3): `WP_List_Table` の bulk 用 `_wpnonce` が保存用 nonce を上書きし「リンクの期限切れ」になる問題 — 保存 nonce を `_wpnonce_s2j_*` に分離。Bulk 適用時は `bulk-*` nonce を検証
+* 管理 UI: 保存 POST の `action` に `page` / `tab` クエリーを含め、**設定 > 一般** に戻ってしまう問題を修正
+* 管理 UI: 保存成功メッセージが二重表示 — `options-head.php` と重複していた `settings_errors()` 呼び出しを削除
+* 管理 UI (タブ3): 未マッピングフォーム行の HTML5 `required` により保存がブロックされる問題 — 必須判定は [FormOptions](../includes/Options/FormOptions.php) サーバー側のみ
+* 管理 UI (タブ3): 狭幅で `data-colname` をコントロール上に縦積み — 長い翻訳ラベルが省略されない ([forms-tab.css](../assets/admin/forms-tab.css))
+
 ## 0.2.1 - 2026-10-30
 
 ### Changed
 
-* docs: [status.md](./docs/status.md) — 100% チェックリストを **非 HTTPS / HTTPS**、各 **自動 → 手動** に再構成。v0.2 実装済み項目を反映
+* docs: [status.md](./docs/status.md): 100% チェックリストを **非 HTTPS / HTTPS**、各 **自動 → 手動** に再構成。v0.2実装済み項目を反映
 
 ### Tests
 
@@ -64,7 +101,7 @@
 
 * docs: 管理 UI を3タブ + `WP_List_Table` (メディアライブラリ型) に再定義 ([admin_ui_spec.md](./docs/admin_ui_spec.md)、`D-007–D-010`)。実装追随 (タブ1の SaaS ガード、タブ2/3の CSS と列構成)
 * 管理 UI 実装: 3タブ、`TypesListTable` / `FormsListTable`、`DispatchOptions` / `SaasOptions`
-* プラグイン初版: 設定 UI (種別、宛先 / SMF フォーム写像)、SMF フック、`Dispatch\Runner`、相関 ID ログ、自動返信のみ失敗時の完了維持
+* プラグイン初版: 設定 UI (種別、宛先 / SMF フォームマッピング)、SMF フック、`Dispatch\Runner`、相関 ID ログ、自動返信のみ失敗時の完了維持
 * `ServiceGate`: vendor に Service がない場合は送信のみ無効 (dist zip 同梱時は有効)
 * dist CI: `npm run dist` + `.github/workflows/dist-zip.yml` (Alliance Manager / Slug Generater 同型、`vendor/` 同梱)
 * PHPUnit: `ServiceGate`、Service 連携 smoke、問い合わせタイプ slug / `sanitizeFromPost` (`TypeOptionsTest`)、`channel=mail` 時の SaaS POST 無視 (`SaasOptionsTest`)

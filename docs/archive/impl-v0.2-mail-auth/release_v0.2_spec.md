@@ -12,7 +12,7 @@
 
 1. **Mail チャネル** で DKIM/SPF/DMARC を **`Email Auth`** + `wp_mail` (Transport) に委譲する方針を、プラグイン spec として固定する (D-013– D-015)。
 2. **SaaS チャネル** は API 秘密・接続・種別プロジェクトを本プラグインが保持 (D-009– D-012、変更なし)。
-3. **SMF 写像・種別** は Mail / SaaS 共通 SoT (変更なし)。
+3. **SMF マッピング・種別** は Mail / SaaS 共通 SoT (変更なし)。
 
 ## 2. スコープ (What)
 
@@ -53,7 +53,7 @@ flowchart TB
 
 | データ | Mail | SaaS |
 | --- | --- | --- |
-| 写像・種別 | `s2j_inquiry_destination_forms` / `types` | 同左 |
+| マッピング・種別 | `s2j_inquiry_destination_forms` / `types` | 同左 |
 | 接続・秘密 | なし (D-010) | `s2j_inquiry_destination_saas` |
 | 計算 | Service の4関数 | 同左 |
 | 副作用 | `wp_mail` | `wp_remote_request` |

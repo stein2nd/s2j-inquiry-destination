@@ -27,7 +27,7 @@ GatherPress + S2J Webinar 型の **ホスト設定画面に UI 統合しませ�
 
 | 責務 | 主体 | 備考 |
 | --- | --- | --- |
-| SMF フォーム ↔ 種別・フィールド写像 | **本プラグイン** | `s2j_inquiry_destination_forms` (D-007タブ3) |
+| SMF フォーム ↔ 種別・フィールドマッピング | **本プラグイン** | `s2j_inquiry_destination_forms` (D-007タブ3) |
 | dispatch チャネル | **本プラグイン** | D-009 |
 | SaaS API 秘密・接続 | **本プラグイン** | `channel=saas` 時、`s2j_inquiry_destination_saas` (D-010) |
 | 種別ごと `mail_to` | **本プラグイン** | `channel=mail` 時、D-003 |
@@ -41,7 +41,7 @@ GatherPress + S2J Webinar 型の **ホスト設定画面に UI 統合しませ�
 1. SMF `administrator_mailer/is_sended` → `Dispatch\Runner` (D-001)。
 2. Service `build_dispatch_material` → MailMaterial。
 3. Runner が `wp_mail( $to, $subject, $body, $headers, $attachments )`。
-4. `Email Auth` (有効時) が `wp_mail_from` / `phpmailer_init` 等で PHPMailer を変更 — **写像フォームの管理者宛、SMF 自動返信、コアの `wp_mail` すべて** に適用。
+4. `Email Auth` (有効時) が `wp_mail_from` / `phpmailer_init` 等で PHPMailer を変更 — **マッピングフォームの管理者宛、SMF 自動返信、コアの `wp_mail` すべて** に適用。
 
 ```text
 Runner::executeMail()  [includes/Dispatch/Runner.php]
@@ -85,8 +85,8 @@ v0.2 **必須外:** Webinar 型 `CompanionStatus` (installed / inactive / activa
 
 | # | 条件 | 期待 |
 | --- | --- | --- |
-| 1 | `Email Auth` **無効**、Mail チャネル | 写像フォーム送信成功 |
-| 2 | `Email Auth` **有効** (Local 可。DKIM selector 任意) | 写像フォーム送信成功 |
+| 1 | `Email Auth` **無効**、Mail チャネル | マッピングフォーム送信成功 |
+| 2 | `Email Auth` **有効** (Local 可。DKIM selector 任意) | マッピングフォーム送信成功 |
 | 3 | `Email Auth` 有効 | `wp-login.php` パスワードリセット成功 (D-005 / 0.1.1回帰) |
 | 4 | `channel=saas` | タブ1に `Email Auth` 案内 **非表示** |
 

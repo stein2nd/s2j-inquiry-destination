@@ -10,7 +10,7 @@
 
 | 対象 | 正本 |
 | --- | --- |
-| 検証、Mail 材料、結果写像、不足コード | Inquiry Destination **Service** の `docs/core/` と `docs/contracts/` |
+| 検証、Mail 材料、結果マッピング、不足コード | Inquiry Destination **Service** の `docs/core/` と `docs/contracts/` |
 | 公開 PHP API | Service の `docs/interfaces/php_api_spec.md` |
 | option キー、Snow Monkey Forms フック、画面文言、From/Reply-To | 本 `docs/` (`data_dictionary.md` / `admin_ui_spec.md` 等) |
 | 最短手順 | ルート `README.md` |

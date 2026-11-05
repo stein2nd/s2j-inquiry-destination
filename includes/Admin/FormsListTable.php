@@ -186,10 +186,10 @@ final class FormsListTable extends \WP_List_Table
         /** @var array{name: string, email: string, phone: string, message: string} $fields */
         $fields = $item['fields'];
 
-        return $this->fieldInput($form_id, 'name', __('Name', 's2j-inquiry-destination'), $fields['name'], true)
-            . $this->fieldInput($form_id, 'email', __('Email', 's2j-inquiry-destination'), $fields['email'], true)
-            . $this->fieldInput($form_id, 'phone', __('Phone (optional)', 's2j-inquiry-destination'), $fields['phone'], false)
-            . $this->fieldInput($form_id, 'message', __('Message', 's2j-inquiry-destination'), $fields['message'], true);
+        return $this->fieldInput($form_id, 'name', __('Name', 's2j-inquiry-destination'), $fields['name'])
+            . $this->fieldInput($form_id, 'email', __('Email', 's2j-inquiry-destination'), $fields['email'])
+            . $this->fieldInput($form_id, 'phone', __('Phone (optional)', 's2j-inquiry-destination'), $fields['phone'])
+            . $this->fieldInput($form_id, 'message', __('Message', 's2j-inquiry-destination'), $fields['message']);
     }
 
     /**
@@ -257,15 +257,14 @@ final class FormsListTable extends \WP_List_Table
         echo '</form>';
     }
 
-    private function fieldInput(int $form_id, string $field, string $label, string $value, bool $required): string
+    private function fieldInput(int $form_id, string $field, string $label, string $value): string
     {
         return sprintf(
-            '<p><label>%1$s<br /><input type="text" name="forms[%2$d][fields][%3$s]" value="%4$s" class="regular-text" %5$s /></label></p>',
+            '<p><label>%1$s<br /><input type="text" name="forms[%2$d][fields][%3$s]" value="%4$s" class="regular-text" autocomplete="off" /></label></p>',
             esc_html($label),
             $form_id,
             esc_attr($field),
-            esc_attr($value),
-            $required ? 'required' : ''
+            esc_attr($value)
         );
     }
 

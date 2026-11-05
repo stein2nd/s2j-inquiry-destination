@@ -30,6 +30,20 @@ final class DispatchOptionsTest extends TestCase
 		Assert::assertSame( 'saas_asana', DispatchOptions::destinationKind( DispatchOptions::PRODUCT_ASANA ) );
 	}
 
+	public function test_sanitize_mail_channel_clears_saas_product(): void
+	{
+		$result = DispatchOptions::sanitizeFromPost(
+			array(
+				'channel'      => 'mail',
+				'saas_product' => 'backlog',
+			)
+		);
+
+		Assert::assertNull( $result['error'] );
+		Assert::assertSame( DispatchOptions::CHANNEL_MAIL, $result['settings']['channel'] );
+		Assert::assertSame( '', $result['settings']['saas_product'] );
+	}
+
 	public function test_sanitize_rejects_unknown_saas_product_with_choice_phrase(): void
 	{
 		$result = DispatchOptions::sanitizeFromPost(

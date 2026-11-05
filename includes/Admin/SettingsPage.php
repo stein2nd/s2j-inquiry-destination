@@ -25,6 +25,16 @@ final class SettingsPage
     /** @var non-empty-string */
     private const EMAIL_AUTH_PLUGIN = 'email-auth/email-auth.php';
 
+    /** Settings save nonces (not `_wpnonce` — WP_List_Table bulk actions use that name). */
+    private const NONCE_FIELD_SERVICE = '_wpnonce_s2j_service';
+
+    private const NONCE_FIELD_TYPES = '_wpnonce_s2j_types';
+
+    private const NONCE_FIELD_FORMS = '_wpnonce_s2j_forms';
+
+    /** Set when service settings save succeeds in this request (render uses saved dispatch). */
+    private static bool $serviceSettingsSavedThisRequest = false;
+
     public static function menuSlug(): string
     {
         return self::MENU_SLUG;
@@ -57,6 +67,25 @@ final class SettingsPage
             return;
         }
 
+        wp_enqueue_style(
+            's2j-inquiry-destination-admin-busy',
+            S2J_INQUIRY_DESTINATION_PLUGIN_URL . 'assets/admin/settings-busy.css',
+            array(),
+            S2J_INQUIRY_DESTINATION_VERSION
+        );
+
+        wp_register_script('s2j-inquiry-destination-admin-busy', false, array(), S2J_INQUIRY_DESTINATION_VERSION, true);
+        wp_localize_script(
+            's2j-inquiry-destination-admin-busy',
+            's2jInquiryDestinationAdmin',
+            array(
+                'tabLoadingMessage' => __('Loading tab. Please wait…', 's2j-inquiry-destination'),
+                'tabSubmitMessage'  => __('Saving settings. Please wait…', 's2j-inquiry-destination'),
+            )
+        );
+        wp_enqueue_script('s2j-inquiry-destination-admin-busy');
+        wp_add_inline_script('s2j-inquiry-destination-admin-busy', self::adminSubmitBusyScript());
+
         $tab = self::currentTab();
 
         if (self::TAB_TYPES === $tab) {
@@ -67,7 +96,7 @@ final class SettingsPage
                 S2J_INQUIRY_DESTINATION_VERSION
             );
 
-            wp_register_script('s2j-inquiry-destination-admin', false, array(), S2J_INQUIRY_DESTINATION_VERSION, true);
+            wp_register_script('s2j-inquiry-destination-admin', false, array( 's2j-inquiry-destination-admin-busy' ), S2J_INQUIRY_DESTINATION_VERSION, true);
             $dispatch = DispatchOptions::get();
             wp_localize_script(
                 's2j-inquiry-destination-admin',
@@ -81,10 +110,14 @@ final class SettingsPage
                     'colProjectId'  => __('Project ID', 's2j-inquiry-destination'),
                     'colIssueType'  => __('Issue type ID', 's2j-inquiry-destination'),
                     'colPriorityId' => __('Priority ID', 's2j-inquiry-destination'),
+                    'confirmBulkDelete' => __(
+                        'Delete the selected inquiry types? Form mappings that use them will block deletion.',
+                        's2j-inquiry-destination'
+                    ),
                 )
             );
             wp_enqueue_script('s2j-inquiry-destination-admin');
-            wp_add_inline_script('s2j-inquiry-destination-admin', self::typesAddRowScript());
+            wp_add_inline_script('s2j-inquiry-destination-admin', self::typesTabScript());
         }
 
         if (self::TAB_FORMS === $tab) {
@@ -97,7 +130,7 @@ final class SettingsPage
         }
 
         if (self::TAB_SERVICE === $tab) {
-            wp_register_script('s2j-inquiry-destination-admin-service', false, array(), S2J_INQUIRY_DESTINATION_VERSION, true);
+            wp_register_script('s2j-inquiry-destination-admin-service', false, array( 's2j-inquiry-destination-admin-busy' ), S2J_INQUIRY_DESTINATION_VERSION, true);
             wp_enqueue_script('s2j-inquiry-destination-admin-service');
             wp_add_inline_script('s2j-inquiry-destination-admin-service', self::serviceTabScript());
         }
@@ -125,11 +158,11 @@ final class SettingsPage
             self::handleServicePost();
         }
 
-        if (isset($post['s2j_inquiry_destination_save_types'])) {
+        if (isset($post['s2j_inquiry_destination_save_types']) || self::isTypesBulkPost($post)) {
             self::handleTypesPost();
         }
 
-        if (isset($post['s2j_inquiry_destination_save_forms'])) {
+        if (isset($post['s2j_inquiry_destination_save_forms']) || self::isFormsBulkPost($post)) {
             self::handleFormsPost();
         }
     }
@@ -145,7 +178,7 @@ final class SettingsPage
         echo '<div class="wrap s2j-inquiry-destination-settings">';
         echo '<h1>' . esc_html__('S2J Inquiry Destination', 's2j-inquiry-destination') . '</h1>';
 
-        settings_errors(self::MENU_SLUG);
+        // Notices: options-head.php (parent options-general.php) already calls settings_errors().
 
         if (! SnowMonkeyForms::isActive()) {
             echo '<div class="notice notice-warning"><p>';
@@ -174,7 +207,7 @@ final class SettingsPage
             self::TAB_FORMS   => __('Snow Monkey Forms mapping', 's2j-inquiry-destination'),
         );
 
-        echo '<nav class="nav-tab-wrapper wp-clearfix" aria-label="' . esc_attr__('Secondary menu', 's2j-inquiry-destination') . '">';
+        echo '<nav class="nav-tab-wrapper wp-clearfix s2j-inquiry-destination-nav-tabs" aria-label="' . esc_attr__('Secondary menu', 's2j-inquiry-destination') . '">';
         foreach ($tabs as $slug => $label) {
             $url = add_query_arg(
                 array(
@@ -184,27 +217,30 @@ final class SettingsPage
                 admin_url('options-general.php')
             );
             $class = $slug === $active ? 'nav-tab nav-tab-active' : 'nav-tab';
-            echo '<a href="' . esc_url($url) . '" class="' . esc_attr($class) . '">' . esc_html($label) . '</a>';
+            echo '<a href="' . esc_url($url) . '" class="' . esc_attr($class) . '">';
+            echo '<span class="s2j-inquiry-destination-nav-tab-label">' . esc_html($label) . '</span>';
+            echo '<span class="spinner s2j-inquiry-destination-nav-tab-spinner" aria-hidden="true"></span>';
+            echo '</a>';
         }
         echo '</nav>';
+        echo '<p id="s2j-inquiry-destination-tab-loading-status" class="s2j-inquiry-destination-tab-loading hidden" role="status" aria-live="polite"></p>';
     }
 
     private static function renderServiceTab(): void
     {
-        $dispatch = DispatchOptions::get();
-        $stored   = SaasOptions::getStored();
+        $post     = self::postData();
+        $dispatch = self::serviceTabDisplayDispatch($post);
+        $stored   = self::serviceTabDisplayStored($post, $dispatch['saas_product']);
         $is_saas  = DispatchOptions::CHANNEL_SAAS === $dispatch['channel'];
         $product  = $dispatch['saas_product'];
-        if ($is_saas && ! DispatchOptions::isValidProduct($product)) {
-            $product = DispatchOptions::PRODUCT_BACKLOG;
-        }
-        $server         = $is_saas && SaasOptions::isConfiguredViaServer($product);
+        $server         = $is_saas && DispatchOptions::isValidProduct($product) && SaasOptions::isConfiguredViaServer($product);
         $connection_lock = $server;
 
-        echo '<form method="post" class="s2j-inquiry-destination-tab-service">';
-        wp_nonce_field('s2j_inquiry_destination_service');
+        echo '<form method="post" class="s2j-inquiry-destination-tab-service" action="' . esc_url(self::settingsScreenUrl(self::TAB_SERVICE)) . '">';
+        wp_nonce_field('s2j_inquiry_destination_service', self::NONCE_FIELD_SERVICE);
         echo '<input type="hidden" name="page" value="' . esc_attr(self::MENU_SLUG) . '" />';
         echo '<input type="hidden" name="tab" value="' . esc_attr(self::TAB_SERVICE) . '" />';
+        echo '<input type="hidden" name="s2j_inquiry_destination_save_service" value="1" disabled="disabled" id="s2j-inquiry-destination-service-save-flag" />';
 
         echo '<h2>' . esc_html__('Dispatch channel', 's2j-inquiry-destination') . '</h2>';
         echo '<p class="description">' . esc_html__('Route inquiries to WordPress mail or to a configured inquiry management SaaS via the inquiry service.', 's2j-inquiry-destination') . '</p>';
@@ -256,11 +292,18 @@ final class SettingsPage
         echo '</div>';
 
         echo '<p class="submit s2j-inquiry-destination-service-verify-wrap' . ( $is_saas ? '' : ' hidden' ) . '">';
+        echo '<span class="s2j-inquiry-destination-submit-with-spinner">';
         echo '<button type="submit" name="s2j_inquiry_destination_test_saas_connection" id="s2j_inquiry_destination_test_saas_connection" class="button button-secondary">'
             . esc_html__('Verify connection', 's2j-inquiry-destination')
-            . '</button></p>';
+            . '</button>';
+        echo '<span class="spinner" aria-hidden="true"></span>';
+        echo '</span></p>';
 
-        submit_button(__('Save service settings', 's2j-inquiry-destination'), 'primary', 's2j_inquiry_destination_save_service');
+        echo '<p class="submit">';
+        echo '<span class="s2j-inquiry-destination-submit-with-spinner">';
+        submit_button(__('Save service settings', 's2j-inquiry-destination'), 'primary', 's2j_inquiry_destination_save_service', false);
+        echo '<span class="spinner" aria-hidden="true"></span>';
+        echo '</span></p>';
         echo '</form>';
     }
 
@@ -281,19 +324,30 @@ final class SettingsPage
 
         $table->search_box(__('Search inquiry types', 's2j-inquiry-destination'), 'inquiry-type');
 
-        echo '<form method="post">';
-        wp_nonce_field('s2j_inquiry_destination_types');
+        echo '<form id="s2j-inquiry-destination-types-form" method="post" action="' . esc_url(self::settingsScreenUrl(self::TAB_TYPES)) . '">';
+        wp_nonce_field('s2j_inquiry_destination_types', self::NONCE_FIELD_TYPES);
         echo '<input type="hidden" name="page" value="' . esc_attr(self::MENU_SLUG) . '" />';
         echo '<input type="hidden" name="tab" value="' . esc_attr(self::TAB_TYPES) . '" />';
 
-        echo '<div class="s2j-inquiry-types-list-table-wrap">';
+        $wrap_classes = array( 's2j-inquiry-types-list-table-wrap' );
+        if (DispatchOptions::CHANNEL_SAAS === $dispatch['channel']) {
+            $wrap_classes[] = 's2j-inquiry-types-list-table-wrap--saas';
+            if (DispatchOptions::PRODUCT_BACKLOG === $dispatch['saas_product']) {
+                $wrap_classes[] = 's2j-inquiry-types-list-table-wrap--backlog';
+            } elseif (DispatchOptions::PRODUCT_ASANA === $dispatch['saas_product']) {
+                $wrap_classes[] = 's2j-inquiry-types-list-table-wrap--asana';
+            }
+        }
+        echo '<div class="' . esc_attr(implode(' ', $wrap_classes)) . '">';
         $table->display();
         echo '</div>';
 
         echo '<p class="submit">';
         echo '<button type="button" class="button" id="s2j-inquiry-destination-add-type-row">' . esc_html__('Add new inquiry type', 's2j-inquiry-destination') . '</button> ';
+        echo '<span class="s2j-inquiry-destination-submit-with-spinner">';
         submit_button(__('Save inquiry types', 's2j-inquiry-destination'), 'primary', 's2j_inquiry_destination_save_types', false);
-        echo '</p>';
+        echo '<span class="spinner" aria-hidden="true"></span>';
+        echo '</span></p>';
         echo '</form>';
     }
 
@@ -318,8 +372,8 @@ final class SettingsPage
 
         $table->search_box(__('Search forms', 's2j-inquiry-destination'), 'smf-form');
 
-        echo '<form method="post">';
-        wp_nonce_field('s2j_inquiry_destination_forms');
+        echo '<form id="s2j-inquiry-destination-forms-form" method="post" action="' . esc_url(self::settingsScreenUrl(self::TAB_FORMS)) . '">';
+        wp_nonce_field('s2j_inquiry_destination_forms', self::NONCE_FIELD_FORMS);
         echo '<input type="hidden" name="page" value="' . esc_attr(self::MENU_SLUG) . '" />';
         echo '<input type="hidden" name="tab" value="' . esc_attr(self::TAB_FORMS) . '" />';
 
@@ -327,13 +381,91 @@ final class SettingsPage
         $table->display();
         echo '</div>';
 
-        submit_button(__('Save form mappings', 's2j-inquiry-destination'), 'primary', 's2j_inquiry_destination_save_forms');
+        echo '<p class="submit">';
+        echo '<span class="s2j-inquiry-destination-submit-with-spinner">';
+        submit_button(__('Save form mappings', 's2j-inquiry-destination'), 'primary', 's2j_inquiry_destination_save_forms', false);
+        echo '<span class="spinner" aria-hidden="true"></span>';
+        echo '</span></p>';
         echo '</form>';
+    }
+
+    /**
+     * Dispatch fields shown on the service tab (saved option, or last POST on verify/save).
+     *
+     * @param array<mixed, mixed> $post
+     *
+     * @return array{channel: string, saas_product: string}
+     */
+    private static function serviceTabDisplayDispatch(array $post): array
+    {
+        if (self::$serviceSettingsSavedThisRequest) {
+            return DispatchOptions::get();
+        }
+
+        if ('POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || ! self::isServiceTabFormPost($post)) {
+            return DispatchOptions::get();
+        }
+
+        $channel = isset($post['channel']) && is_string($post['channel'])
+            ? sanitize_key($post['channel'])
+            : DispatchOptions::CHANNEL_MAIL;
+        if (DispatchOptions::CHANNEL_SAAS !== $channel) {
+            return array(
+                'channel'      => DispatchOptions::CHANNEL_MAIL,
+                'saas_product' => '',
+            );
+        }
+
+        $saas_product = isset($post['saas_product']) && is_string($post['saas_product'])
+            ? sanitize_key($post['saas_product'])
+            : '';
+        if (! DispatchOptions::isValidProduct($saas_product)) {
+            $saas_product = '';
+        }
+
+        return array(
+            'channel'      => DispatchOptions::CHANNEL_SAAS,
+            'saas_product' => $saas_product,
+        );
+    }
+
+    /**
+     * Connection field values for re-display after verify/save POST (secrets are never repopulated).
+     *
+     * @param array<mixed, mixed> $post
+     *
+     * @return array<string, string>
+     */
+    private static function serviceTabDisplayStored(array $post, string $saas_product): array
+    {
+        $stored = SaasOptions::getStored();
+        if (! self::isServiceTabFormPost($post) || ! DispatchOptions::isValidProduct($saas_product)) {
+            return $stored;
+        }
+
+        if (isset($post['endpoint']) && is_string($post['endpoint'])) {
+            $stored['endpoint'] = sanitize_text_field(trim($post['endpoint']));
+        }
+
+        return $stored;
+    }
+
+    /**
+     * @param array<mixed, mixed> $post
+     */
+    private static function isServiceTabFormPost(array $post): bool
+    {
+        if (! isset($post['tab']) || self::TAB_SERVICE !== sanitize_key((string) $post['tab'])) {
+            return false;
+        }
+
+        return isset($post['s2j_inquiry_destination_test_saas_connection'])
+            || isset($post['s2j_inquiry_destination_save_service']);
     }
 
     private static function handleServiceConnectionTest(): void
     {
-        check_admin_referer('s2j_inquiry_destination_service');
+        check_admin_referer('s2j_inquiry_destination_service', self::NONCE_FIELD_SERVICE);
 
         $post = self::postData();
 
@@ -375,7 +507,7 @@ final class SettingsPage
 
     private static function handleServicePost(): void
     {
-        check_admin_referer('s2j_inquiry_destination_service');
+        check_admin_referer('s2j_inquiry_destination_service', self::NONCE_FIELD_SERVICE);
 
         $post = self::postData();
 
@@ -399,15 +531,20 @@ final class SettingsPage
         }
 
         add_settings_error(self::MENU_SLUG, 'service_saved', __('Service settings saved.', 's2j-inquiry-destination'), 'success');
+        self::$serviceSettingsSavedThisRequest = true;
     }
 
     private static function handleTypesPost(): void
     {
-        check_admin_referer('s2j_inquiry_destination_types');
-
-        $post  = self::postData();
-        $input = self::postArray($post, 'types');
+        $post   = self::postData();
         $action = self::currentListAction();
+        if ('delete' === $action && ! isset($post['s2j_inquiry_destination_save_types'])) {
+            check_admin_referer('bulk-inquiry_types');
+        } else {
+            check_admin_referer('s2j_inquiry_destination_types', self::NONCE_FIELD_TYPES);
+        }
+
+        $input = self::postArray($post, 'types');
         if ('delete' === $action) {
             $slugs     = self::postArray($post, 'type');
             $slug_list = self::nonEmptyStringList($slugs);
@@ -421,16 +558,24 @@ final class SettingsPage
         }
 
         update_option(TypeOptions::OPTION_KEY, $result['types']);
-        add_settings_error(self::MENU_SLUG, 'types_saved', __('Inquiry types saved.', 's2j-inquiry-destination'), 'success');
+        if ('delete' === $action) {
+            add_settings_error(self::MENU_SLUG, 'types_deleted', __('Inquiry types deleted.', 's2j-inquiry-destination'), 'success');
+        } else {
+            add_settings_error(self::MENU_SLUG, 'types_saved', __('Inquiry types saved.', 's2j-inquiry-destination'), 'success');
+        }
     }
 
     private static function handleFormsPost(): void
     {
-        check_admin_referer('s2j_inquiry_destination_forms');
+        $post   = self::postData();
+        $action = self::currentListAction();
+        if (self::isFormsBulkAction($action) && ! isset($post['s2j_inquiry_destination_save_forms'])) {
+            check_admin_referer('bulk-smf_forms');
+        } else {
+            check_admin_referer('s2j_inquiry_destination_forms', self::NONCE_FIELD_FORMS);
+        }
 
-        $post     = self::postData();
         $posted   = self::postArray($post, 'forms');
-        $action   = self::currentListAction();
         $selected = self::postArray($post, 'form');
 
         $remove_ids = array();
@@ -462,6 +607,14 @@ final class SettingsPage
 
     private static function currentTab(): string
     {
+        $post = self::postData();
+        if (isset($post['tab'])) {
+            $tab = sanitize_key((string) $post['tab']);
+            if (self::isKnownTab($tab)) {
+                return $tab;
+            }
+        }
+
         $tab = self::queryString('tab', self::TAB_SERVICE);
         if (self::isKnownTab($tab)) {
             return $tab;
@@ -470,11 +623,63 @@ final class SettingsPage
         return self::TAB_SERVICE;
     }
 
+    /**
+     * @param array<mixed, mixed> $post
+     */
+    private static function isTypesBulkPost(array $post): bool
+    {
+        if (! isset($post['tab']) || self::TAB_TYPES !== sanitize_key((string) $post['tab'])) {
+            return false;
+        }
+
+        if ('delete' !== self::currentListAction()) {
+            return false;
+        }
+
+        return self::postArray($post, 'type') !== array();
+    }
+
+    /**
+     * @param array<mixed, mixed> $post
+     */
+    private static function isFormsBulkPost(array $post): bool
+    {
+        if (! isset($post['tab']) || self::TAB_FORMS !== sanitize_key((string) $post['tab'])) {
+            return false;
+        }
+
+        $action = self::currentListAction();
+        if (! self::isFormsBulkAction($action)) {
+            return false;
+        }
+
+        return self::postArray($post, 'form') !== array();
+    }
+
+    /**
+     * @param string|false $action
+     */
+    private static function isFormsBulkAction($action): bool
+    {
+        return 'clear_mapping' === $action || 'change_type' === $action;
+    }
+
     private static function isKnownTab(string $tab): bool
     {
         return self::TAB_SERVICE === $tab
             || self::TAB_TYPES === $tab
             || self::TAB_FORMS === $tab;
+    }
+
+    private static function settingsScreenUrl(string $tab): string
+    {
+        return add_query_arg(
+            array(
+                'page' => self::MENU_SLUG,
+                'tab'  => $tab,
+            ),
+            admin_url('options-general.php')
+        );
     }
 
     /**
@@ -611,7 +816,11 @@ final class SettingsPage
             echo '<input type="password" name="access_token" class="regular-text s2j-inquiry-destination-service-connection-input" autocomplete="new-password"'
                 . $input_attrs
                 . ' />';
-            echo '<p class="description">' . esc_html__('Leave blank to keep the current token.', 's2j-inquiry-destination') . '</p>';
+            echo '<p class="description">' . esc_html(
+                SaasOptions::isAccessTokenConfigured()
+                    ? __('Leave blank to keep the current token.', 's2j-inquiry-destination')
+                    : __('Enter a token to verify the connection or save settings.', 's2j-inquiry-destination')
+            ) . '</p>';
             echo '</td></tr>';
             $endpoint = $stored['endpoint'] ?? '';
             echo '<tr><th scope="row">' . esc_html__('API base URL (optional)', 's2j-inquiry-destination') . '</th><td>';
@@ -635,7 +844,11 @@ final class SettingsPage
             echo '<input type="password" name="api_key" class="regular-text s2j-inquiry-destination-service-connection-input" autocomplete="new-password"'
                 . $input_attrs
                 . ' />';
-            echo '<p class="description">' . esc_html__('Leave blank to keep the current key.', 's2j-inquiry-destination') . '</p>';
+            echo '<p class="description">' . esc_html(
+                SaasOptions::isApiKeyConfigured()
+                    ? __('Leave blank to keep the current key.', 's2j-inquiry-destination')
+                    : __('Enter an API key to verify the connection or save settings.', 's2j-inquiry-destination')
+            ) . '</p>';
             echo '</td></tr>';
         }
         echo '</tbody></table>';
@@ -727,6 +940,106 @@ final class SettingsPage
         return is_plugin_active(self::EMAIL_AUTH_PLUGIN);
     }
 
+    private static function adminSubmitBusyScript(): string
+    {
+        return <<<'JS'
+(function () {
+	const root = document.querySelector('.s2j-inquiry-destination-settings');
+	if (!root) {
+		return;
+	}
+
+	const nav = root.querySelector('.s2j-inquiry-destination-nav-tabs');
+	const tabStatus = root.querySelector('#s2j-inquiry-destination-tab-loading-status');
+	const adminMessages = window.s2jInquiryDestinationAdmin || {};
+	const tabLoadingMessage = adminMessages.tabLoadingMessage || 'Loading tab. Please wait…';
+	const tabSubmitMessage = adminMessages.tabSubmitMessage || tabLoadingMessage;
+
+	const setNavTabBusy = (spinnerTabLink, statusMessage) => {
+		if (!nav) {
+			return;
+		}
+		nav.querySelectorAll('a.nav-tab').forEach((anchor) => {
+			anchor.classList.add('s2j-inquiry-destination-nav-tab-disabled');
+			anchor.setAttribute('aria-disabled', 'true');
+		});
+		const link = spinnerTabLink || nav.querySelector('a.nav-tab-active');
+		if (link) {
+			const tabSpinner = link.querySelector('.s2j-inquiry-destination-nav-tab-spinner');
+			if (tabSpinner) {
+				tabSpinner.classList.add('is-active');
+			}
+		}
+		if (tabStatus && statusMessage) {
+			tabStatus.textContent = statusMessage;
+			tabStatus.classList.remove('hidden');
+		}
+		root.setAttribute('aria-busy', 'true');
+	};
+
+	const showBusy = (form, submitter) => {
+		const trigger =
+			submitter && submitter.form === form && submitter.matches('[type="submit"]')
+				? submitter
+				: form.querySelector('[type="submit"]');
+		if (!trigger || trigger.disabled) {
+			return;
+		}
+
+		form.setAttribute('aria-busy', 'true');
+		form.querySelectorAll('[type="submit"]').forEach((el) => {
+			if (submitter && el === submitter) {
+				return;
+			}
+			el.disabled = true;
+		});
+		if (submitter && submitter.matches('[type="submit"]')) {
+			window.setTimeout(() => {
+				submitter.disabled = true;
+			}, 0);
+		}
+
+		const host = trigger.closest('.s2j-inquiry-destination-submit-with-spinner') || trigger.parentElement;
+		if (host) {
+			let spinner = host.querySelector(':scope > .spinner:not(.s2j-inquiry-destination-nav-tab-spinner)');
+			if (!spinner) {
+				spinner = document.createElement('span');
+				spinner.className = 'spinner';
+				spinner.setAttribute('aria-hidden', 'true');
+				host.appendChild(spinner);
+			}
+			spinner.classList.add('is-active');
+		}
+
+		setNavTabBusy(null, tabSubmitMessage);
+	};
+
+	root.querySelectorAll('form[method="post"]').forEach((form) => {
+		form.addEventListener('submit', (event) => {
+			if (event.defaultPrevented) {
+				return;
+			}
+			showBusy(form, event.submitter || null);
+		});
+	});
+
+	if (nav) {
+		nav.addEventListener('click', (event) => {
+			const link = event.target.closest('a.nav-tab');
+			if (!link || !nav.contains(link) || link.classList.contains('nav-tab-active')) {
+				return;
+			}
+			if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+				return;
+			}
+
+			setNavTabBusy(link, tabLoadingMessage);
+		});
+	}
+})();
+JS;
+    }
+
     private static function serviceTabScript(): string
     {
         return <<<'JS'
@@ -734,6 +1047,22 @@ final class SettingsPage
 	const form = document.querySelector('.s2j-inquiry-destination-tab-service');
 	if (!form) {
 		return;
+	}
+
+	const saveFlag = document.getElementById('s2j-inquiry-destination-service-save-flag');
+	const saveServiceButton = form.querySelector('[name="s2j_inquiry_destination_save_service"]');
+	const verifyButton = document.getElementById('s2j_inquiry_destination_test_saas_connection');
+	if (saveFlag && saveServiceButton) {
+		const armSaveFlag = () => {
+			saveFlag.disabled = false;
+		};
+		const disarmSaveFlag = () => {
+			saveFlag.disabled = true;
+		};
+		saveServiceButton.addEventListener('click', armSaveFlag);
+		if (verifyButton) {
+			verifyButton.addEventListener('click', disarmSaveFlag);
+		}
 	}
 
 	const channelInputs = form.querySelectorAll('input[name="channel"]');
@@ -794,23 +1123,60 @@ final class SettingsPage
 			const lockedByServer = input.hasAttribute('data-s2j-server-locked');
 			input.disabled = !activePanel || lockedByServer;
 		});
+
+		if (!isSaas) {
+			productInputs.forEach((input) => {
+				input.checked = false;
+			});
+		}
 	};
 
 	channelInputs.forEach((input) => input.addEventListener('change', sync));
 	productInputs.forEach((input) => input.addEventListener('change', sync));
+	form.addEventListener('submit', () => {
+		sync();
+	});
 	sync();
 })();
 JS;
     }
 
-    private static function typesAddRowScript(): string
+    private static function typesTabScript(): string
     {
         return <<<'JS'
 (function () {
+	const form = document.getElementById('s2j-inquiry-destination-types-form');
+	const labels = window.s2jInquiryDestinationTypesTab || {};
+
+	if (form) {
+		form.addEventListener(
+			'submit',
+			(event) => {
+				const submitter = event.submitter;
+				if (!submitter || (submitter.id !== 'doaction' && submitter.id !== 'doaction2')) {
+					return;
+				}
+				const selectId = submitter.id === 'doaction' ? 'bulk-action-selector-top' : 'bulk-action-selector-bottom';
+				const select = document.getElementById(selectId);
+				if (!select || select.value !== 'delete') {
+					return;
+				}
+				const checked = form.querySelectorAll('input[name="type[]"]:checked');
+				if (checked.length === 0) {
+					return;
+				}
+				const message = labels.confirmBulkDelete || 'Delete the selected inquiry types?';
+				if (!window.confirm(message)) {
+					event.preventDefault();
+				}
+			},
+			true
+		);
+	}
+
 	let counter = 0;
 	const button = document.getElementById('s2j-inquiry-destination-add-type-row');
 	const table = document.querySelector('.s2j-inquiry-destination-settings .wp-list-table tbody');
-	const labels = window.s2jInquiryDestinationTypesTab || {};
 	if (!button || !table) {
 		return;
 	}

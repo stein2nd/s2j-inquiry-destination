@@ -15,12 +15,13 @@ s2j-inquiry-destination/
 ├── composer.json              # s2j/inquiry-destination-service
 ├── vendor/
 ├── assets/admin/
-│   ├── types-tab.css          # タブ2 List Table レイアウト
-│   └── forms-tab.css          # タブ3 フィールド名列
+│   ├── settings-busy.css      # 全タブ: POST submit + nav-tab GET 切替 .spinner (D-017)
+│   ├── types-tab.css          # タブ2: Mail Z字 / Backlog SaaS 4段階 (wrap --saas --backlog)
+│   └── forms-tab.css          # タブ3 フィールド名列 + 狭幅縦積み
 ├── includes/
 │   ├── Plugin.php             # ブートストラップ
 │   ├── Admin/
-│   │   ├── SettingsPage.php   # 3タブ、タブ別 POST / nonce、タブ1 JS + タブ2/3 CSS enqueue
+│   │   ├── SettingsPage.php   # 3タブ、タブ別 POST / nonce、タブ1/2 インライン JS + タブ2/3 CSS enqueue
 │   │   ├── ListTableLoader.php
 │   │   ├── TypesListTable.php / FormsListTable.php
 │   ├── Options/
@@ -49,7 +50,7 @@ s2j-inquiry-destination/
 
 | モジュール | 責務 |
 | --- | --- |
-| `Admin/SettingsPage` | タブルーティング、option 保存 (タブごと nonce)、SMF 未有効 Notice、タブ1 **接続検証 POST** + **serviceTabScript**、タブ2/3 CSS、types Add-row JS |
+| `Admin/SettingsPage` | タブルーティング、form `action`、nonce D-016、通知 code、option 保存、SMF Notice、**D-017** (`adminSubmitBusyScript` + `settings-busy.css` + `s2jInquiryDestinationAdmin`)、`renderTabs` (nav 内スピナー + loading status)、タブ1 **serviceTabScript**、タブ2 **typesTabScript** + `types-tab.css`、タブ3 **forms-tab.css** |
 | `Admin/*ListTable` | 種別・フォーム一覧 (Bulk / Views / 検索 / ソート) |
 | `Options/*` | option 読み書き、POST サニタイズ (タブ1: dispatch + SaaS 接続ガード D-010、`resolveForConnectionTest`) |
 | `Support/SaasConnectionProbe` | タブ1接続検証用 GET (Runner 起票とは別) |

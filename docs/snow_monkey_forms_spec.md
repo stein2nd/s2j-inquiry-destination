@@ -29,7 +29,7 @@
 | --- | --- | --- |
 | `snow_monkey_forms/administrator_mailer/skip` | デフォルト: 10 | 対応フォームなら `true` のみ。**Runner は呼ばない** |
 | `snow_monkey_forms/administrator_mailer/is_sended` | デフォルト: 10 | 対応フォーム (skip 経路) で **Dispatch Runner を最大1回** 同期実行し、成否を返す。失敗時は `RuntimeException` で SMF を **systemerror** ([governance](./governance/documentation_governance.md) §2) にする |
-| `snow_monkey_forms/auto_reply_mailer/is_sended` | デフォルト: 10 | 管理者宛成功後、自動返信だけ失敗した場合 **true を返して完了を維持** ([dispatch_execution_spec.md](./dispatch_execution_spec.md)) |
+| `snow_monkey_forms/auto_reply_mailer/is_sended` | デフォルト: 10 | 管理者宛の成功後、自動返信だけ失敗した場合 **true を返して完了を維持** ([dispatch_execution_spec.md](./dispatch_execution_spec.md)) |
 
 **使わない (初版):** `administrator_mailer/args` で SMF 文面を上書きする方式は採用しない (宛先の正は種別設定のため)。
 
@@ -40,7 +40,7 @@ SMF の `AdministratorMailer` は、`skip === true` の場合、内部送信を�
 1. `skip` で SMF 本体の管理者メールを抑止 (副作用なし)
 2. `is_sended` 内で Runner を **1回だけ** 同期実行
 3. 失敗時 `is_sended` 内で `RuntimeException`
-4. 成功時 `is_sended` は `true`。`RequestContext` に管理者宛成功と `correlation_id` を記録 ([decisions.md](./decisions.md) D-002)
+4. 成功時 `is_sended` は `true`。`RequestContext` に管理者宛の成功と `correlation_id` を記録 ([decisions.md](./decisions.md) D-002)
 
 相関 ID とカスタムエラー文は [dispatch_execution_spec.md](./dispatch_execution_spec.md) です。
 
@@ -62,9 +62,9 @@ SMF の `AdministratorMailer` は、`skip === true` の場合、内部送信を�
 
 1. `FormRow` から `fields` を読む
 2. `Responser` から各 name の値を取得 (trim)
-3. **未写像コントロール**: `Setting::get_controls()` と送信値を走査し、写像済み name 以外を `message` **末尾** に追記
+3. **未マッピングコントロール**: `Setting::get_controls()` と送信値を走査し、マッピング済み name 以外を `message` **末尾** に追記
 
-追記形式 (1行1 項目):
+追記形式 (1行1項目):
 
 ```text
 {name}: {value}
@@ -74,7 +74,7 @@ SMF の `AdministratorMailer` は、`skip === true` の場合、内部送信を�
 
 4. `subject_hint` = 当該 `TypeRow.label` (**初版必須** — [data_dictionary.md](./data_dictionary.md))
 5. `locale` = `determine_locale()`
-6. `meta` = `[]` (未写像は meta に載せない)
+6. `meta` = `[]` (未マッピングは meta に載せない)
 7. `normalize_inquiry_payload` 以降は Runner 内で Service 公開 API 経由
 
 ## 宛先レコード

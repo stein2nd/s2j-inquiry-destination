@@ -14,7 +14,7 @@
 
 ## 計算の正本 (Composer ライブラリ)
 
-統一ペイロードの検証、Mail 材料、結果写像の規則は、本プラグインには置きません。
+統一ペイロードの検証、Mail 材料、結果マッピングの規則は、本プラグインには置きません。
 
 * 索引: [s2j-inquiry-destination-service / docs/specs.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/specs.md)
 * Transport 境界 (v0.4): [transport_boundary_spec.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/transport_boundary_spec.md)
@@ -23,7 +23,7 @@
 * 使用方法 (プラグイン向け): [usage_spec.md](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/interfaces/usage_spec.md)
 * 用語 (`inquiry_type`、`kind`、`correlation_id`): [data_dictionary.md (Service)](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/contracts/data_dictionary.md)
 
-プラグイン `composer.json`: **`s2j/inquiry-destination-service` ^0.4.0** (v0.2 spec)。
+プラグイン `composer.json`: **`s2j/inquiry-destination-service` ^0.4.0** (v0.2 `spec`)。
 
 ## 読み方ガイド
 
@@ -35,7 +35,7 @@
 4. **[architecture.md](./architecture.md)** — レイヤとフォルダー
 5. **[data_dictionary.md](./data_dictionary.md)** — option、フック名
 6. **[admin_ui_spec.md](./admin_ui_spec.md)** — 設定画面
-7. **[snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md)** — SMF 接続とフィールド写像
+7. **[snow_monkey_forms_spec.md](./snow_monkey_forms_spec.md)** — SMF 接続とフィールドマッピング
 8. **[dispatch_execution_spec.md](./dispatch_execution_spec.md)** — 送信、`wp_mail`、失敗と自動返信
 9. **[mail_deliverability_spec.md](./mail_deliverability_spec.md)** — Mail Transport、`Email Auth` (v0.2)
 10. **[logging_spec.md](./logging_spec.md)** — `error_log` と相関 ID
@@ -51,7 +51,7 @@
 5. [dispatch_execution_spec.md](./dispatch_execution_spec.md)
 6. [mail_deliverability_spec.md](./mail_deliverability_spec.md)
 7. [logging_spec.md](./logging_spec.md)
-8. [decisions.md](./decisions.md) — 実装固定 (D-001– D-015)
+8. [decisions.md](./decisions.md) — 実装固定 (D-001– D-016)
 9. [status.md](./status.md) / [test-results.md](./test-results.md)
 10. [governance/documentation_governance.md](./governance/documentation_governance.md)
 
@@ -77,7 +77,7 @@
 | ドキュメント | 内容 |
 | --- | --- |
 | [データ辞書](./data_dictionary.md) | option キー、SMF フック、相関 ID |
-| [管理 UI](./admin_ui_spec.md) | 設定 > S2J Inquiry Destination (3タブ、List Table) |
+| [管理 UI](./admin_ui_spec.md) | 設定 > S2J Inquiry Destination (3タブ、List Table、§ POST / D-016) |
 | [Snow Monkey Forms 接続](./snow_monkey_forms_spec.md) | フォーム対応、skip、未対応コントロール |
 | [SaaS 接続](./saas_connection_spec.md) | Backlog / Asana、タブ1/2· Runner HTTP (Service ^0.4) |
 
@@ -95,9 +95,9 @@
 | --- | --- |
 | [実装状況](./status.md) | 機能単位の進捗 |
 | [テスト戦略と結果](./test-results.md) | 段階1–3 |
-| [決定事項](./decisions.md) | Runner、UI、SMF、Mail (D-013– D-015) |
+| [決定事項](./decisions.md) | Runner、UI (D-016含む)、SMF、Mail (D-013– D-015) |
 | [ドキュメンテーション・ガバナンス](./governance/documentation_governance.md) | SoT、用語、lint、`docs_mod` 起草 → `docs` 正本 |
-| [archive 索引](./archive/README.md) | 完了イニシアチブ (v0.2 Mail 等) |
+| [archive 索引](./archive/README.md) | 完了イニシアチブ (v0.2 `Mail` 等) |
 
 ## Source of Truth
 
@@ -105,7 +105,7 @@
 
 | 対象 | 正本 |
 | --- | --- |
-| ペイロード・宛先・ Mail 材料 (4キー)・結果写像 | Inquiry Destination **Service** の `docs/core/` |
+| ペイロード・宛先・ Mail 材料 (4キー)、結果マッピング | Inquiry Destination **Service** の `docs/core/` |
 | Mail Transport (DKIM 等) | Service [transport_boundary_spec](https://github.com/stein2nd/s2j-inquiry-destination-service/blob/main/docs/core/transport_boundary_spec.md) + 本 [mail_deliverability_spec.md](./mail_deliverability_spec.md) |
 | 公開 PHP API | Service の `docs/interfaces/php_api_spec.md` |
 | option 構造、SMF フック、Runner ヘッダー、画面文言 | 本 `docs/` |

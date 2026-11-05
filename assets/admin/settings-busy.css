@@ -1,0 +1,61 @@
+/* POST submit + tab navigation feedback (core .spinner) — settings screen */
+
+.s2j-inquiry-destination-settings .s2j-inquiry-destination-nav-tabs .nav-tab .s2j-inquiry-destination-nav-tab-spinner {
+	display: none;
+	float: none;
+	margin: 0 0 0 6px;
+	vertical-align: middle;
+}
+
+.s2j-inquiry-destination-settings .s2j-inquiry-destination-nav-tabs .nav-tab .s2j-inquiry-destination-nav-tab-spinner.is-active {
+	display: inline-block;
+	visibility: visible;
+}
+
+.s2j-inquiry-destination-settings .s2j-inquiry-destination-nav-tabs .nav-tab.s2j-inquiry-destination-nav-tab-disabled {
+	opacity: 0.65;
+	cursor: wait;
+	pointer-events: none;
+}
+
+.s2j-inquiry-destination-settings .s2j-inquiry-destination-tab-loading {
+	margin: 0 0 12px;
+	padding: 8px 12px;
+	border-left: 4px solid #72aee6;
+	background: #fff;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.s2j-inquiry-destination-settings .s2j-inquiry-destination-tab-loading.hidden {
+	display: none;
+}
+
+.s2j-inquiry-destination-settings .s2j-inquiry-destination-submit-with-spinner {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.s2j-inquiry-destination-settings .s2j-inquiry-destination-submit-with-spinner .spinner {
+	float: none;
+	margin: 0 0 0 6px;
+	vertical-align: middle;
+}
+
+.s2j-inquiry-destination-settings .tablenav .actions .spinner {
+	float: none;
+	margin: 0 0 0 4px;
+	vertical-align: middle;
+}
+
+.s2j-inquiry-destination-settings p.submit .spinner {
+	float: none;
+	margin: 4px 0 0 6px;
+	vertical-align: middle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.s2j-inquiry-destination-settings .spinner.is-active {
+		animation: none;
+		opacity: 0.85;
+	}
+}

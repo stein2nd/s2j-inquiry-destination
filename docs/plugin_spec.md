@@ -26,7 +26,7 @@ kis-core は本体にしません。KIS のページ構成は **kis-inquiry** �
 
 | 層 | 名称 | 役割 |
 | --- | --- | --- |
-| 計算 | [s2j-inquiry-destination-service](https://github.com/stein2nd/s2j-inquiry-destination-service) | 統一ペイロード、検証、Mail 材料 (4キー)、結果写像。WordPress 非依存 |
+| 計算 | [s2j-inquiry-destination-service](https://github.com/stein2nd/s2j-inquiry-destination-service) | 統一ペイロード、検証、Mail 材料 (4キー)、結果マッピング。WordPress 非依存 |
 | 副作用 | **本プラグイン** | 設定、SMF フック、`wp_mail` / HTTP、ログ、相関 ID |
 | Transport (Mail) | **`Email Auth`** 等 (任意) | DKIM/SPF/DMARC、From デフォルト — サイト全体 ([mail_deliverability_spec.md](./mail_deliverability_spec.md)) |
 | フォーム | [Snow Monkey Forms](https://wordpress.org/plugins/snow-monkey-forms/) | 入力・確認・完了・自動返信・一時ファイル |
