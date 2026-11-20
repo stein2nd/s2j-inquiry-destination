@@ -2,9 +2,12 @@
 
 ## unreleased
 
+## 0.2.4 - 2026-11-20
+
 ### Changed
 
-* CI (dist): `actions/upload-artifact` **v6**（Node 24 ランタイム。v5 の Node 20 非推奨アノテーション解消）
+* WordPress プラグイン版 **0.2.4** (`Version` / `S2J_INQUIRY_DESTINATION_VERSION`)。`package.json` 同期
+* CI (dist): `actions/upload-artifact` **v6** (Node v24ランタイム。v5の Node v20非推奨アノテーション解消)
 
 ## 0.2.3 - 2026-11-20
 

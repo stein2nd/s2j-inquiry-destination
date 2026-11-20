@@ -1,6 +1,6 @@
 {
     "name": "s2j-inquiry-destination",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "Route SMF admin mail by inquiry type — mail or SaaS",
     "type": "module",
     "author": "Koutarou ISHIKAWA",
