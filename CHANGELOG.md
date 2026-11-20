@@ -2,6 +2,10 @@
 
 ## unreleased
 
+### Changed
+
+* CI (dist): `actions/upload-artifact` **v6**（Node 24 ランタイム。v5 の Node 20 非推奨アノテーション解消）
+
 ## 0.2.3 - 2026-11-20
 
 ### Changed
