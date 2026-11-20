@@ -2,6 +2,17 @@
 
 ## unreleased
 
+## 0.2.3 - 2026-11-20
+
+### Changed
+
+* WordPress プラグイン版 **0.2.3** (`Version` / `S2J_INQUIRY_DESTINATION_VERSION`)。`package.json` 同期
+* CI: GitHub Actions — `ubuntu-24.04`、`actions/checkout` / `setup-node` / `upload-artifact` **v5**、Lint / dist の Node **24** (Node v20非推奨アノテーション解消)
+
+### Notes
+
+* WordPress プラグイン実装の変更点は **0.2.2** (2026-11-05) に集約。要点: **D-017** (POST/GET busy、タブリップスピナー、submitter 遅延 disable)、タブ1 **Mail 保存** (`save-flag` / dispatch 再描画)、タブ2 **Bulk 削除** UX、表レイアウト、**FormOptionsTest**、Local **Mail / v0.2** 手動 Pass 記録 ([test-results.md](./docs/test-results.md))
+
 ## 0.2.2 - 2026-11-05
 
 ### Tests
